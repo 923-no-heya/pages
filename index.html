@@ -56,14 +56,27 @@
     .catHeader h2{margin:0;font-size:28px;font-weight:800;background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
     .catHeader p{flex-basis:100%;margin:8px 0 0;color:var(--muted)}
     .viewAll{padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#f9fafb;color:var(--brand);font-weight:600}
-
-    /* Card Grid (共通デザイン) */
-    .cardGrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:24px;transition:all .2s ease;display:flex;flex-direction:column;gap:8px}
+    .cardGrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .card{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:8px;transition:all .2s ease}
     .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
-    .cardTitle{font-size:18px;font-weight:700;color:var(--ink)}
-    .cardDesc{color:var(--muted);font-size:14px}
-    .cardMore{margin-top:auto;font-weight:700;color:var(--brand)}
+    .cardTitle{font-size:20px;font-weight:700;margin:0}
+    .cardDesc{
+      color: var(--muted);
+      font-size:14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .cardMore{margin-top:auto;color:var(--brand);font-weight:700}
+
+    /* Lists for PDFs */
+    .pdfList{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+    .pdfList li a{display:block;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#f9fafb}
+
+    /* Article pages */
+    article{background:var(--surface);box-shadow:var(--shadow);padding:36px;border-radius:var(--radius);margin:24px}
+    .breadcrumbs{font-size:12px;color:var(--muted);margin-bottom:12px}
 
     /* Footer */
     footer{padding:32px;text-align:center;color:var(--muted);background:#f3f4f6;margin-top:60px}
@@ -121,25 +134,6 @@
   <script>
     const $=s=>document.querySelector(s);
 
-    // ==== カードコンポーネント ====
-    function ArticleCard(a){
-      return `
-        <a class="card" href="${a._external||a.url ? a.url : '#/article/'+a.id}" ${a._external||a.url?'target="_blank" rel="noopener"':''}>
-          <div class="cardTitle">${a.title}</div>
-          ${a.description ? `<div class="cardDesc">${a.description}</div>` : ""}
-          <div class="cardMore">本文を見る →</div>
-        </a>`;
-    }
-    function SubcatCard(catKey, sc){
-      return `
-        <a class="card" href="#/subcategory/${catKey}/${sc.key}">
-          <div class="cardTitle">${sc.label}</div>
-          ${sc.summary ? `<div class="cardDesc">${sc.summary}</div>` : ""}
-          <div class="cardMore">セクションを開く →</div>
-        </a>`;
-    }
-
-    // ==== ルーティング ====
     function route(){
       const hash=location.hash||"#/";
       const app=$("#app");
@@ -151,7 +145,25 @@
       app.innerHTML="<p style='padding:40px'>ページが見つかりません</p>";
     }
 
-    // ==== Home ====
+    function SubcatCard(parentKey, sc){
+      const desc = sc.summary || "";
+      return `
+        <a class="card" href="#/subcategory/${parentKey}/${sc.key}">
+          <h3 class="cardTitle">${sc.label}</h3>
+          <div class="cardDesc">${desc}</div>
+          <span class="cardMore">もっと見る →</span>
+        </a>`;
+    }
+
+    function ArticleCard(a){
+      return `
+        <a class="card" href="${a.url || `#/article/${a.id}`}" ${a.url ? `target="_blank" rel="noopener"` : ""}>
+          <h3 class="cardTitle">${a.title}</h3>
+          <div class="cardDesc">${a.description || ""}</div>
+          <span class="cardMore">本文を見る →</span>
+        </a>`;
+    }
+
     function renderHome(app){
       let html=`
         <section class="hero">
@@ -162,56 +174,73 @@
             <a class="btn secondary" href="#/category/math">数学へ</a>
           </div>
         </section>`;
-      html+= SITE.categories.map(c=>{
-        let inner="";
-        if(c.subcategories){ inner = c.subcategories.map(sc=>SubcatCard(c.key,sc)).join("") }
-        else if(c.articles){ inner = c.articles.map(ArticleCard).join("") }
+      const hideViewAllKeys = new Set(["stat","math","memoir","others"]);
+
+      html += SITE.categories.map(c=>{
+        const inner = c.subcategories
+          ? c.subcategories.map(sc=>SubcatCard(c.key, sc)).join("")
+          : (c.articles||[]).map(ArticleCard).join("");
+
         return `
-          <section class="catSection container">
+          <section class="catSection container" id="${c.key}">
             <div class="catHeader">
               <h2>${c.label}</h2>
-              <a class="viewAll" href="#/category/${c.key}">すべて見る</a>
-              <p>${c.summary||''}</p>
+              ${hideViewAllKeys.has(c.key) ? "" : `<a class="viewAll" href="#/category/${c.key}">すべて見る</a>`}
+              <p>${c.summary || ''}</p>
             </div>
             <div class="cardGrid">${inner}</div>
           </section>`;
       }).join("");
-      app.innerHTML=html;
+
+      app.innerHTML = html;
     }
 
-    // ==== Category ====
     function renderCategory(app,key){
       const cat = SITE.categories.find(c=>c.key===key);
       if(!cat){app.innerHTML="<p>カテゴリが見つかりません</p>";return}
       if(cat.subcategories){
         app.innerHTML = `
-          <section class="catSection container">
-            <div class="catHeader"><h2>${cat.label}</h2><p>${cat.summary||''}</p></div>
-            <div class="cardGrid">${cat.subcategories.map(sc=>SubcatCard(cat.key, sc)).join('')}</div>
+          <section class='catSection container'>
+            <div class='catHeader'>
+              <h2>${cat.label}</h2>
+              <p>${cat.summary||''}</p>
+            </div>
+            <div class="cardGrid">
+              ${cat.subcategories.map(sc=>SubcatCard(cat.key, sc)).join('')}
+            </div>
           </section>`;
         return;
       }
+      const list=(cat.articles||[]);
       app.innerHTML=`
-        <section class="catSection container">
-          <div class="catHeader"><h2>${cat.label}</h2><p>${cat.summary||''}</p></div>
-          <div class="cardGrid">${cat.articles.map(ArticleCard).join('')}</div>
+        <section class='catSection container'>
+          <div class='catHeader'>
+            <h2>${cat.label}</h2>
+            <p>${cat.summary||''}</p>
+          </div>
+          <div class='cardGrid'>
+            ${list.map(ArticleCard).join('')}
+          </div>
         </section>`;
     }
 
-    // ==== Subcategory ====
     function renderSubcategory(app,parentKey,subKey){
       const cat = SITE.categories.find(c=>c.key===parentKey);
       const sc = cat?.subcategories?.find(s=>s.key===subKey);
       if(!cat || !sc){app.innerHTML="<p>セクションが見つかりません</p>";return}
       app.innerHTML = `
-        <div class="breadcrumbs container"><a href='#/'>トップ</a> › <a href='#/category/${cat.key}'>${cat.label}</a> › ${sc.label}</div>
-        <section class="catSection container">
-          <div class="catHeader"><h2>${sc.label}</h2><p>${sc.summary||''}</p></div>
-          <ul class='pdfList'>${sc.articles.map(item=>`<li><a href='${item.url}' target='_blank' rel='noopener'>${item.title}</a></li>`).join('')}</ul>
+        <div class='breadcrumbs container'><a href='#/'>トップ</a> › <a href='#/category/${cat.key}'>${cat.label}</a> › ${sc.label}</div>
+        <section class='catSection container'>
+          <div class='catHeader'>
+            <h2>${sc.label}</h2>
+            <p>${cat.summary||''}</p>
+          </div>
+          <ul class='pdfList'>
+            ${(sc.articles||[]).map(item=>`<li><a href='${item.url}' target='_blank' rel='noopener'>${item.title}</a></li>`).join('')}
+          </ul>
         </section>`;
     }
 
-    // ==== Internal Article ====
     function renderArticle(app,id){
       const cat = SITE.categories.find(c=> (c.articles||[]).some(a=>a.id===id));
       const a = cat?.articles?.find(x=>x.id===id);
@@ -221,7 +250,6 @@
         <article class='container'><h1>${a.title}</h1><div>${a.body||''}</div></article>`;
     }
 
-    // ==== Drawer ====
     const drawer=$("#drawer"),menuBtn=$("#menuBtn");
     menuBtn.addEventListener("click",()=>drawer.classList.toggle("open"));
     drawer.addEventListener("click",e=>{if(e.target.tagName==="A")drawer.classList.remove("open")});
