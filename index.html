@@ -1,442 +1,344 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>9 × 2 = 3 の部屋</title>
-  <meta name="description" content="ある研究者のドキュメントを参照できるサイトです。" />
-  <meta property="og:title" content="9 × 2 = 3 の部屋" />
-  <meta property="og:type" content="website" />
-  <meta property="og:description" content="ある研究者のドキュメントを参照できるサイトです。" />
-  <meta property="og:image" content="" />
-  <meta name="theme-color" content="#0ea5e9" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg: #0b1020;
-      --panel:#0f172a;
-      --ink:#e5e7eb;
-      --muted:#9ca3af;
-      --brand:#0ea5e9;
-      --accent:#22d3ee;
-      --ring: 0 0 0 3px color-mix(in oklab, var(--brand) 40%, transparent);
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --grid: minmax(240px,1fr);
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg:#f6f7fb;
-        --panel:#ffffff;
-        --ink:#0f172a;
-        --muted:#6b7280;
-        --brand:#0284c7;
-        --accent:#06b6d4;
-      }
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, "Noto Sans JP", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(1200px 600px at 80% -10%, color-mix(in oklab, var(--brand) 20%, transparent), transparent 60%),
-        radial-gradient(900px 500px at -10% 20%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%),
-        var(--bg);
-      line-height:1.6;
-    }
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1100px; margin:0 auto; padding:24px}
-    header{
-      position:sticky; top:0; z-index:30;
-      backdrop-filter:saturate(140%) blur(10px);
-      background: color-mix(in oklab, var(--bg) 82%, transparent);
-      border-bottom:1px solid color-mix(in oklab, var(--panel) 70%, transparent);
-    }
-    .nav{
-      display:flex; align-items:center; gap:16px;
-      padding:12px 24px;
-    }
-    .brand{
-      font-weight:800; letter-spacing:.02em; font-size:18px;
-      display:flex; align-items:center; gap:10px;
-    }
-    .logo{
-      width:28px; height:28px; border-radius:8px;
-      background: conic-gradient(from 180deg at 50% 50%, var(--brand), var(--accent), var(--brand));
-      box-shadow: var(--shadow);
-    }
-    .spacer{flex:1}
-    .tabs{display:flex; gap:6px; flex-wrap:wrap}
-    .tab{
-      padding:8px 12px; border-radius:999px; font-weight:600;
-      border:1px solid color-mix(in oklab, var(--ink) 12%, transparent);
-      opacity:.9;
-    }
-    .tab[aria-current="page"]{outline: var(--ring); opacity:1; border-color: color-mix(in oklab, var(--brand) 40%, transparent)}
-    .menuButton{display:none}
-    @media (max-width:900px){
-      .tabs{display:none}
-      .menuButton{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; border:1px solid color-mix(in oklab, var(--ink) 12%, transparent)}
-    }
-    .drawer{
-      position:fixed; inset:0 0 0 auto; width:min(86%,360px); transform:translateX(100%);
-      background:var(--panel); box-shadow: var(--shadow); transition:.28s ease;
-      display:flex; flex-direction:column; padding:20px; gap:10px; z-index:40;
-    }
-    .drawer.open{transform:translateX(0)}
-    .drawer a{padding:10px 12px; border-radius:10px; border:1px solid color-mix(in oklab, var(--ink) 12%, transparent)}
-    main{min-height:70vh}
-    .hero{
-      display:grid; grid-template-columns: 1.2fr 1fr; gap:24px;
-      padding:48px 24px 16px;
-      align-items:center;
-    }
-    .heroCard{
-      background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 92%, transparent), color-mix(in oklab, var(--panel) 98%, transparent));
-      border:1px solid color-mix(in oklab, var(--ink) 12%, transparent);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding:28px;
-    }
-    .kicker{font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-size:12px}
-    h1{font-size: clamp(28px, 6vw, 48px); line-height:1.15; margin:6px 0 12px}
-    .lead{font-size:18px; color:var(--muted)}
-    .ctaRow{display:flex; gap:12px; margin-top:16px; flex-wrap:wrap}
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:12px 16px; border-radius:12px; font-weight:700; letter-spacing:.02em;
-      border:1px solid color-mix(in oklab, var(--ink) 12%, transparent);
-      background: color-mix(in oklab, var(--panel) 86%, transparent);
-    }
-    .btn.primary{
-      background: linear-gradient(135deg, var(--brand), var(--accent));
-      color:#001018; border:none;
-      box-shadow: 0 10px 30px color-mix(in oklab, var(--brand) 30%, transparent);
-    }
-    .grid{
-      display:grid; gap:16px; grid-template-columns: repeat(3, var(--grid));
-      padding:16px 0 40px;
-    }
-    @media (max-width:900px){ .hero{grid-template-columns:1fr} .grid{grid-template-columns: repeat(2, var(--grid));} }
-    @media (max-width:600px){ .grid{grid-template-columns:1fr;} }
-    .card{
-      background:var(--panel); border-radius:var(--radius);
-      border:1px solid color-mix(in oklab, var(--ink) 12%, transparent);
-      box-shadow: var(--shadow);
-      overflow:hidden; display:flex; flex-direction:column;
-    }
-    .cardHeader{
-      padding:18px 18px 0; display:flex; align-items:center; gap:12px;
-    }
-    .chip{
-      padding:6px 10px; font-weight:700; font-size:12px; border-radius:999px;
-      background: color-mix(in oklab, var(--ink) 12%, transparent);
-      color: color-mix(in oklab, var(--ink) 80%, transparent);
-    }
-    .cardTitle{font-size:20px; font-weight:800; line-height:1.2; margin:8px 0 0}
-    .cardBody{padding:0 18px 18px; color:var(--muted)}
-    .cardFooter{margin-top:auto; padding:14px 18px; border-top:1px solid color-mix(in oklab, var(--ink) 10%, transparent); display:flex; gap:8px; flex-wrap:wrap}
-    .tag{font-size:12px; padding:6px 8px; border-radius:8px; border:1px dashed color-mix(in oklab, var(--ink) 20%, transparent)}
-    .searchWrap{margin:8px 0 18px}
-    .search{
-      width:100%; padding:12px 14px; border-radius:12px; outline:none;
-      border:1px solid color-mix(in oklab, var(--ink) 18%, transparent);
-      background: color-mix(in oklab, var(--panel) 88%, transparent); color:var(--ink);
-      box-shadow: inset 0 1px 0 color-mix(in oklab, var(--ink) 6%, transparent);
-    }
-    .list{display:grid; gap:12px; padding:8px 0 24px}
-    .row{
-      padding:14px; background: color-mix(in oklab, var(--panel) 92%, transparent);
-      border:1px solid color-mix(in oklab, var(--ink) 12%, transparent);
-      border-radius:12px; display:grid; gap:6px;
-    }
-    .rowTitle{font-weight:800}
-    .rowMeta{font-size:12px; color:var(--muted)}
-    article.article{
-      background:var(--panel); border:1px solid color-mix(in oklab, var(--ink) 12%, transparent);
-      border-radius:var(--radius); padding:24px; box-shadow: var(--shadow);
-    }
-    .breadcrumbs{font-size:12px; color:var(--muted); margin-bottom:10px}
-    footer{
-      border-top:1px solid color-mix(in oklab, var(--ink) 12%, transparent);
-      color:var(--muted); padding:24px; text-align:center;
-      background: color-mix(in oklab, var(--panel) 40%, transparent);
-    }
-    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>9 × 2 = 3 の部屋</title>
+<meta name="description" content="ある研究者のドキュメントを参照できるサイトです。" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Design Tokens ===== */
+  :root{
+    --bg:#f7fafc; --bg-grad1:#eef6ff; --bg-grad2:#ffffff;
+    --surface:#ffffff; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+    --brand:#2563eb; --brand-2:#06b6d4; --accent:#0ea5e9;
+    --radius:16px; --radius-sm:12px; --shadow-sm:0 4px 12px rgba(15,23,42,.08);
+    --shadow-md:0 12px 28px rgba(15,23,42,.10);
+    --max:1120px; --trans:220ms cubic-bezier(.22,.61,.36,1);
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+
+  /* ===== Base ===== */
+  *{box-sizing:border-box}
+  body{
+    margin:0; font:16px/1.7 Inter,"Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(900px 420px at 10% -10%, rgba(14,165,233,.15), transparent 60%),
+      radial-gradient(700px 380px at 100% 0%, rgba(99,102,241,.12), transparent 55%),
+      linear-gradient(160deg,var(--bg-grad1),var(--bg-grad2));
+  }
+  a{color:inherit;text-decoration:none}
+  .container{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  /* ===== Header (glass, underline tabs) ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:saturate(1.2) blur(8px);
+    background:color-mix(in oklab, #ffffff 86%, transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; gap:16px; padding:14px 0;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-weight:800; font-size:18px; color:var(--brand)}
+  .logo{
+    width:30px;height:30px;border-radius:10px;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    box-shadow:var(--shadow-sm);
+  }
+  .spacer{flex:1}
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; position:relative}
+  .tab{
+    position:relative; padding:10px 12px; border-radius:10px;
+    color:#0f172a; background:transparent; font-weight:600;
+    transition:background var(--trans), color var(--trans), transform var(--trans);
+  }
+  .tab:hover{background:#f1f5f9}
+  .tab[aria-current="page"]{
+    color:var(--brand);
+  }
+  .tab[aria-current="page"]::after{
+    content:""; position:absolute; left:12px; right:12px; bottom:-2px; height:3px; border-radius:99px;
+    background:linear-gradient(90deg,var(--brand),var(--brand-2));
+  }
+  .menuButton{
+    display:none; padding:8px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; cursor:pointer;
+  }
+  @media(max-width:880px){
+    .tabs{display:none}
+    .menuButton{display:inline-block}
+  }
+
+  /* ===== Drawer (with overlay) ===== */
+  .backdrop{
+    position:fixed; inset:0; background:rgba(2,6,23,.35); backdrop-filter:blur(2px);
+    opacity:0; visibility:hidden; transition:opacity var(--trans), visibility var(--trans); z-index:59;
+  }
+  .backdrop.open{opacity:1; visibility:visible}
+  .drawer{
+    position:fixed; inset:0 0 0 auto; width:min(86%,340px);
+    transform:translateX(105%); background:var(--surface);
+    border-left:1px solid var(--line); box-shadow:var(--shadow-md);
+    transition:transform var(--trans); display:flex; flex-direction:column; gap:10px; padding:18px; z-index:60;
+  }
+  .drawer.open{transform:none}
+  .drawer h3{margin:0 0 8px}
+  .drawer a{padding:12px;border-radius:10px;background:#f8fafc}
+  .drawer a[aria-current="page"]{background:linear-gradient(135deg,#e0f2fe,#eff6ff); font-weight:700; color:#0c4a6e}
+  .drawer .close{align-self:flex-end; background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 10px; cursor:pointer}
+
+  /* ===== Hero ===== */
+  main{min-height:70vh}
+  .hero{
+    text-align:center; color:#0b2239; padding:64px 0 40px;
+  }
+  .hero .panel{
+    display:inline-block; max-width:780px; padding:24px 22px;
+    background:rgba(255,255,255,.9); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow-sm);
+  }
+  .hero h1{font-size:clamp(28px,5.6vw,48px); margin:0 0 10px; font-weight:800; letter-spacing:.01em}
+  .hero p{margin:0 auto; max-width:720px; color:var(--muted)}
+  .ctaRow{margin-top:18px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap}
+  .btn{
+    padding:12px 16px; border-radius:12px; font-weight:700; transition:transform var(--trans), box-shadow var(--trans), opacity var(--trans);
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn.primary{background:#0ea5e9; color:#fff; box-shadow:var(--shadow-sm)}
+  .btn.secondary{background:#fff; border:1px solid var(--line); color:#0f172a}
+  .btn:hover{transform:translateY(-1px); box-shadow:var(--shadow-md)}
+
+  /* ===== Category Sections ===== */
+  .section{padding:28px 0}
+  .catHeader{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:10px}
+  .catHeader h2{margin:0; font-size:22px; color:#0f172a}
+  .catHeader p{margin:4px 0 0; color:var(--muted)}
+  .articleGrid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .aCard{
+    background:var(--surface); border-radius:var(--radius); border:1px solid var(--line);
+    padding:18px; display:flex; flex-direction:column; gap:8px; box-shadow:var(--shadow-sm);
+    transition:transform var(--trans), box-shadow var(--trans);
+  }
+  .aCard:hover{transform:translateY(-3px); box-shadow:var(--shadow-md)}
+  .aCard h3{margin:0; font-size:18px}
+  .aCard .meta{font-size:12px; color:var(--muted)}
+  .aCard .desc{color:var(--muted)}
+  .aCard .more{margin-top:auto; align-self:flex-start; color:var(--brand); font-weight:600}
+
+  /* ===== Lists / Article ===== */
+  .list{display:grid; gap:12px; padding:24px 0}
+  .row{padding:16px; border-radius:12px; background:#f8fafc; transition:background var(--trans)}
+  .row:hover{background:#e2e8f0}
+  .rowTitle{font-weight:700}
+  .rowMeta{font-size:12px; color:var(--muted)}
+  article{
+    background:var(--surface); box-shadow:var(--shadow-sm); padding:28px; border-radius:var(--radius); margin:20px 0;
+    border:1px solid var(--line);
+  }
+  .breadcrumbs{font-size:12px; color:var(--muted); margin:16px 0 6px}
+  .breadcrumbs a{color:var(--muted)}
+  .chip{display:inline-block; border:1px solid var(--line); border-radius:999px; padding:2px 8px; font-size:.8rem; color:var(--muted)}
+
+  /* ===== Footer ===== */
+  footer{padding:28px 0; text-align:center; color:var(--muted); background:#f8fafc; margin-top:40px; border-top:1px solid var(--line)}
+
+  /* ===== Focus ===== */
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:10px}
+</style>
 </head>
 <body>
   <header>
-    <nav class="nav container" aria-label="Primary">
-      <a class="brand" href="#/">
-        <span class="logo" aria-hidden="true"></span>
-        <span>9 × 2 = 3 の部屋</span>
-      </a>
+    <div class="container nav" role="navigation" aria-label="メイン">
+      <a class="brand" href="#/"><span class="logo" aria-hidden="true"></span><span>9 × 2 = 3 の部屋</span></a>
       <div class="spacer"></div>
-      <div class="tabs" role="tablist" aria-label="セクション">
-        <a class="tab" data-nav href="#/" role="tab">トップ</a>
-        <a class="tab" data-nav href="#/category/stat" role="tab">統計学</a>
-        <a class="tab" data-nav href="#/category/math" role="tab">数学</a>
-        <a class="tab" data-nav href="#/category/others" role="tab">その他の解析</a>
-        <a class="tab" data-nav href="#/category/melas" role="tab">走れメラス</a>
-        <a class="tab" data-nav href="#/category/memoir" role="tab">手記</a>
+      <div class="tabs" id="tabs">
+        <a class="tab" data-key="home" href="#/">トップ</a>
+        <a class="tab" data-key="stat" href="#/category/stat">統計学</a>
+        <a class="tab" data-key="math" href="#/category/math">数学</a>
+        <a class="tab" data-key="others" href="#/category/others">その他の解析</a>
+        <a class="tab" data-key="melas" href="#/category/melas">走れメラス</a>
+        <a class="tab" data-key="memoir" href="#/category/memoir">手記</a>
       </div>
-      <button class="menuButton" id="menuBtn" aria-expanded="false" aria-controls="drawer">メニュー</button>
-    </nav>
+      <button class="menuButton" id="menuBtn" aria-haspopup="dialog" aria-controls="drawer">メニュー</button>
+    </div>
   </header>
 
-  <aside id="drawer" class="drawer" aria-hidden="true" aria-label="モバイルメニュー">
-    <a href="#/">トップ</a>
-    <a href="#/category/stat">統計学</a>
-    <a href="#/category/math">数学</a>
-    <a href="#/category/others">その他の解析</a>
-    <a href="#/category/melas">走れメラス</a>
-    <a href="#/category/memoir">手記</a>
+  <!-- Drawer + Backdrop -->
+  <div class="backdrop" id="backdrop" hidden></div>
+  <aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="メニュー">
+    <button class="close" id="closeDrawer" aria-label="閉じる">✕</button>
+    <h3>メニュー</h3>
+    <a data-key="home" href="#/">トップ</a>
+    <a data-key="stat" href="#/category/stat">統計学</a>
+    <a data-key="math" href="#/category/math">数学</a>
+    <a data-key="others" href="#/category/others">その他の解析</a>
+    <a data-key="melas" href="#/category/melas">走れメラス</a>
+    <a data-key="memoir" href="#/category/memoir">手記</a>
   </aside>
 
-  <main id="app" class="container" tabindex="-1" aria-live="polite"></main>
+  <main id="app" class="container" tabindex="-1"></main>
 
   <footer>
     © <span id="year"></span> 9 × 2 = 3 の部屋 — ある研究者のドキュメントを参照できるサイトです。
   </footer>
 
-  <script>
-    // ====== コンテンツ（ここを書き換えるだけで運用できます） =========================
-    const SITE = {
-      title: "9 × 2 = 3 の部屋",
-      tagline: "ある研究者のドキュメントを参照できるサイトです。",
-      categories: [
-        { key: "stat",   label: "統計学",          summary: "統計的推測・検定・多変量解析などの基礎から応用まで。", tags:["推測","検定","分布","回帰"] },
-        { key: "math",   label: "数学",            summary: "線形代数・微積分・最適化など理論の土台。",           tags:["線形代数","解析","最適化"] },
-        { key: "others", label: "その他の解析",    summary: "シミュレーション・数値計算・信号処理などの実践。",     tags:["数値計算","モデリング"] },
-        { key: "melas",  label: "走れメラス",      summary: "比喩的エッセイ／研究の周辺にある断章。",             tags:["エッセイ"] },
-        { key: "memoir", label: "手記",            summary: "研究メモ・日録・雑記。",                             tags:["メモ","日録"] },
-      ],
-      // 記事データ（必要に応じて増減・修正）
-      articles: [
-        // === 統計学 ===
-        { id:"stat-001", category:"stat",  title:"統計学の序", date:"2025-04-01", description:"統計学の見取り図と本サイトにおける位置づけ。", body:`
-          <p>統計学は「データから不確実性を伴いつつも合理的に結論を導く」ための学問です。本稿では推測・検定・推定の関係、そして本サイトの読み方を概説します。</p>
-          <h3>この連載の狙い</h3>
-          <ul>
-            <li>数式の背後にある直観を獲得する</li>
-            <li>実務で使う最小限の道具立てを持つ</li>
-            <li>できれば楽しく読む</li>
-          </ul>
-        `},
-        { id:"stat-010", category:"stat",  title:"母集団・標本・推定の基礎", date:"2025-04-12", description:"点推定と区間推定、標本分布の考え方。", body:"<p>...</p>"},
-        // === 数学 ===
-        { id:"math-001", category:"math",  title:"線形代数のゼロ章", date:"2025-04-05", description:"写像の目線で見る線形代数。", body:"<p>...</p>"},
-        { id:"math-020", category:"math",  title:"最適化入門：凸最適化の直観", date:"2025-05-01", description:"ラグランジュ双対性のスケッチ。", body:"<p>...</p>"},
-        // === その他の解析 ===
-        { id:"others-001", category:"others", title:"数値積分の実務的コツ", date:"2025-05-20", description:"台形則から適応的手法まで。", body:"<p>...</p>"},
-        // === 走れメラス ===
-        { id:"melas-001", category:"melas", title:"研究は走る、しかし歩く", date:"2025-06-02", description:"急がば回れの技術。", body:"<p>...</p>"},
-        // === 手記 ===
-        { id:"memoir-001", category:"memoir", title:"2025年4月の記録", date:"2025-04-30", description:"今月の所感とメモ。", body:"<p>...</p>"},
-      ]
-    };
+<script>
+/* ===== Site Data (そのまま流用OK) ===== */
+const SITE = {
+  title:"9 × 2 = 3 の部屋",
+  tagline:"ある研究者のドキュメントを参照できるサイトです。",
+  categories:[
+    {key:"stat",label:"統計学",summary:"推測・検定・多変量解析の要点を学ぶ。"},
+    {key:"math",label:"数学",summary:"線形代数・微積・最適化など理論基盤。"},
+    {key:"others",label:"その他の解析",summary:"数値計算・シミュレーションの実践。"},
+    {key:"melas",label:"走れメラス",summary:"研究に寄り添う断章・エッセイ。"},
+    {key:"memoir",label:"手記",summary:"研究メモや雑記。"},
+  ],
+  articles:[
+    {id:"stat-001",category:"stat",title:"統計学の序",date:"2025-04-01",description:"統計学の見取り図と位置づけ。",body:"<p>統計学とは...</p>"},
+    {id:"stat-002",category:"stat",title:"回帰分析入門",date:"2025-04-15",description:"回帰分析の基礎。",body:"<p>...</p>"},
+    {id:"stat-003",category:"stat",title:"検定の考え方",date:"2025-04-20",description:"仮説検定の基礎。",body:"<p>...</p>"},
+    {id:"math-001",category:"math",title:"線形代数のゼロ章",date:"2025-04-05",description:"写像の視点から線形代数を概観。",body:"<p>...</p>"},
+    {id:"math-002",category:"math",title:"微分積分の直観",date:"2025-04-10",description:"解析の直観的理解。",body:"<p>...</p>"},
+    {id:"math-003",category:"math",title:"最適化の基礎",date:"2025-04-18",description:"最適化理論入門。",body:"<p>...</p>"},
+    {id:"others-001",category:"others",title:"数値積分の実務的コツ",date:"2025-05-20",description:"台形則から適応的手法まで。",body:"<p>...</p>"}
+  ]
+};
 
-    // ====== ユーティリティ ======
-    const $ = (sel, el=document) => el.querySelector(sel);
-    const $$ = (sel, el=document) => [...el.querySelectorAll(sel)];
-    const byId = id => SITE.articles.find(a => a.id === id);
-    const catByKey = key => SITE.categories.find(c => c.key === key);
+/* ===== Helpers ===== */
+const $ = (s,el=document)=>el.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;'}[m]));
+const fmt = d => {const t=new Date(d); return isNaN(t)?d:`${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`};
 
-    // ====== ルーター（#/ , #/category/:key , #/article/:id） ======
-    function route(){
-      const hash = location.hash || "#/";
-      const app = $("#app");
-      const [_, root, p1] = hash.split("/"); // ["#","", ""] or ["#","category","stat"]...
-      closeDrawer();
+/* ===== Router ===== */
+function route(){
+  const hash=location.hash||"#/";
+  if(hash==="#/"||hash==="#"){renderHome(); setActiveTab("home"); return}
+  const parts=hash.split("/");
+  if(parts[1]==="category"){renderCategory(parts[2]); setActiveTab(parts[2]); return}
+  if(parts[1]==="article"){renderArticle(parts[2]); setActiveTab(null); return}
+  $("#app").innerHTML=`<section style="padding:40px 0">ページが見つかりません</section>`;
+}
 
-      // タブ状態の更新
-      $$(".tab").forEach(t => t.setAttribute("aria-current", t.getAttribute("href") === hash ? "page" : "false"));
+/* ===== Views ===== */
+function renderHome(){
+  const app=$("#app");
+  // Hero
+  let html=`<section class="hero">
+    <div class="panel">
+      <h1>${esc(SITE.title)}</h1>
+      <p>${esc(SITE.tagline)}</p>
+      <div class="ctaRow">
+        <a class="btn primary" href="#/category/stat">統計学から始める →</a>
+        <a class="btn secondary" href="#/category/math">数学へ →</a>
+      </div>
+    </div>
+  </section>`;
 
-      if(root === "" || root === "#"){ renderHome(app); return; }
-      if(root === "category" && p1){ renderCategory(app, p1); return; }
-      if(root === "article" && p1){ renderArticle(app, p1); return; }
-      renderNotFound(app);
-    }
+  // Category sections + latest 3
+  html += SITE.categories.map(c=>{
+    const list=SITE.articles.filter(a=>a.category===c.key).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
+    return `
+      <section class="section">
+        <div class="catHeader">
+          <h2>${esc(c.label)}</h2>
+          <a class="btn secondary" href="#/category/${c.key}" style="padding:8px 12px">記事一覧へ</a>
+          <p>${esc(c.summary)}</p>
+        </div>
+        <div class="articleGrid">
+          ${list.length?list.map(a=>ArticleCard(a)).join(""):`<div class="aCard"><h3>記事がありません</h3><p class="desc">公開までお待ちください。</p></div>`}
+        </div>
+      </section>`;
+  }).join("");
+  app.innerHTML = html;
+}
 
-    // ====== ビュー ======
-    function renderHome(app){
-      app.innerHTML = `
-        <section class="hero">
-          <div class="heroCard">
-            <span class="kicker">Welcome</span>
-            <h1>${SITE.title}</h1>
-            <p class="lead">${SITE.tagline}</p>
-            <div class="ctaRow">
-              <a class="btn primary" href="#/category/stat">はじめての方は「統計学」から</a>
-              <a class="btn" href="#/category/math" aria-label="数学へ">数学へ</a>
-            </div>
-          </div>
-          <div class="heroCard">
-            <h2 style="margin:0 0 8px;font-size:22px">セクション一覧</h2>
-            <p class="lead" style="font-size:14px">各カテゴリの「記事一覧」から読み進めてください。</p>
-            <div class="grid" style="padding:8px 0 0">
-              ${SITE.categories.map(c => CardCategory(c)).join("")}
-            </div>
-          </div>
-        </section>
-        <section class="grid">
-          ${FeaturedCards()}
-        </section>
-      `;
-      focusMain();
-    }
+function ArticleCard(a){
+  return `<a class="aCard" href="#/article/${a.id}">
+    <h3>${esc(a.title)}</h3>
+    <div class="meta">更新日: ${fmt(a.date)}</div>
+    <div class="desc">${a.description?esc(a.description):""}</div>
+    <span class="more">続きを読む →</span>
+  </a>`;
+}
 
-    function CardCategory(c){
-      return `
-        <article class="card">
-          <div class="cardHeader">
-            <span class="chip">${c.label}</span>
-            <span class="tag">${c.tags[0] ?? ""}</span>
-          </div>
-          <div class="cardBody">
-            <h3 class="cardTitle">${c.label}</h3>
-            <p>${c.summary}</p>
-          </div>
-          <div class="cardFooter">
-            <a class="btn" href="#/category/${c.key}" aria-label="${c.label}の記事一覧へ">記事一覧へ</a>
-          </div>
-        </article>
-      `;
-    }
+function renderCategory(key){
+  const app=$("#app");
+  const cat=SITE.categories.find(c=>c.key===key);
+  if(!cat){app.innerHTML="<section style='padding:40px 0'>カテゴリが見つかりません</section>";return}
+  const list=SITE.articles.filter(a=>a.category===key).sort((a,b)=>b.date.localeCompare(a.date));
+  app.innerHTML = `
+    <div class="breadcrumbs"><a href="#/">トップ</a> › <span>${esc(cat.label)}</span></div>
+    <section class="section">
+      <div class="catHeader">
+        <h2>${esc(cat.label)}</h2>
+        <p>${esc(cat.summary)}</p>
+      </div>
+      <div class="articleGrid">
+        ${list.map(a=>ArticleCard(a)).join("")}
+      </div>
+    </section>`;
+}
 
-    function FeaturedCards(){
-      // 各カテゴリの最新1件をピックアップ
-      const latestByCat = SITE.categories.map(c => {
-        const items = SITE.articles.filter(a => a.category === c.key)
-          .sort((a,b) => b.date.localeCompare(a.date));
-        return items[0] ? [c, items[0]] : null;
-      }).filter(Boolean);
+function renderArticle(id){
+  const app=$("#app");
+  const a=SITE.articles.find(x=>x.id===id);
+  if(!a){app.innerHTML="<section style='padding:40px 0'>記事が見つかりません</section>";return}
+  const cat=SITE.categories.find(c=>c.key===a.category);
+  app.innerHTML = `
+    <div class="breadcrumbs"><a href="#/">トップ</a> › <a href="#/category/${cat.key}">${esc(cat.label)}</a> › <span>${esc(a.title)}</span></div>
+    <article>
+      <div class="rowMeta" style="margin-bottom:6px"><span class="chip">${fmt(a.date)}</span></div>
+      <h1 style="margin:8px 0 12px">${esc(a.title)}</h1>
+      <div>${a.body}</div>
+    </article>
+  `;
+}
 
-      return latestByCat.map(([c,a]) => `
-        <article class="card">
-          <div class="cardHeader">
-            <span class="chip">${c.label}</span>
-          </div>
-          <div class="cardBody">
-            <h3 class="cardTitle">${a.title}</h3>
-            <p>${a.description}</p>
-          </div>
-          <div class="cardFooter">
-            <span class="tag">更新日: ${a.date}</span>
-            <a class="btn" href="#/article/${a.id}">読む</a>
-          </div>
-        </article>
-      `).join("");
-    }
+/* ===== Active tab sync ===== */
+function setActiveTab(key){
+  // header tabs
+  document.querySelectorAll(".tab").forEach(a=>{
+    const match = a.dataset.key === key || (key==="home" && a.dataset.key==="home");
+    a.setAttribute("aria-current", match ? "page" : "false");
+  });
+  // drawer items
+  document.querySelectorAll("#drawer a").forEach(a=>{
+    const match = a.dataset.key === key || (key==="home" && a.dataset.key==="home");
+    if(match) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+  });
+}
 
-    function renderCategory(app, key){
-      const cat = catByKey(key);
-      if(!cat){ renderNotFound(app); return; }
-      const list = SITE.articles
-        .filter(a => a.category === key)
-        .sort((a,b) => b.date.localeCompare(a.date));
+/* ===== Drawer behavior ===== */
+const drawer=$("#drawer"), menuBtn=$("#menuBtn"), closeBtn=$("#closeDrawer"), backdrop=$("#backdrop");
+function openDrawer(){
+  drawer.classList.add("open"); backdrop.classList.add("open"); backdrop.hidden=false;
+  drawer.querySelector("a").focus();
+}
+function closeDrawer(){
+  drawer.classList.remove("open"); backdrop.classList.remove("open");
+  setTimeout(()=>backdrop.hidden=true, 200);
+  menuBtn.focus();
+}
+menuBtn.addEventListener("click", openDrawer);
+closeBtn.addEventListener("click", closeDrawer);
+backdrop.addEventListener("click", closeDrawer);
+drawer.addEventListener("click", e => { if(e.target.tagName==="A") closeDrawer(); });
+document.addEventListener("keydown", e => {
+  if(e.key==="Escape" && drawer.classList.contains("open")) closeDrawer();
+});
 
-      app.innerHTML = `
-        <section class="hero" style="grid-template-columns:1fr">
-          <div class="heroCard">
-            <span class="kicker">Category</span>
-            <h1>${cat.label}</h1>
-            <p class="lead">${cat.summary}</p>
-            <div class="searchWrap">
-              <label class="sr-only" for="q">検索</label>
-              <input id="q" class="search" placeholder="この記事一覧を検索…" inputmode="search" />
-            </div>
-            <div id="list" class="list" role="list">
-              ${list.map(Row).join("")}
-            </div>
-          </div>
-        </section>
-      `;
-      $("#q").addEventListener("input", e => {
-        const q = e.target.value.trim().toLowerCase();
-        const filtered = list.filter(a =>
-          a.title.toLowerCase().includes(q) || (a.description||"").toLowerCase().includes(q)
-        );
-        $("#list").innerHTML = filtered.map(Row).join("") || `<p class="rowMeta">該当する記事が見つかりませんでした。</p>`;
-      });
-      focusMain();
-    }
-    function Row(a){
-      return `
-        <a class="row" href="#/article/${a.id}" role="listitem">
-          <div class="rowTitle">${a.title}</div>
-          <div class="rowMeta">更新日: ${a.date}</div>
-          <div>${a.description ?? ""}</div>
-        </a>
-      `;
-    }
-
-    function renderArticle(app, id){
-      const a = byId(id);
-      if(!a){ renderNotFound(app); return; }
-      const cat = catByKey(a.category);
-      app.innerHTML = `
-        <nav class="breadcrumbs">
-          <a href="#/">トップ</a> › <a href="#/category/${cat.key}">${cat.label}</a> › <span>${a.title}</span>
-        </nav>
-        <article class="article article">
-          <header>
-            <h1 style="margin:0 0 6px">${a.title}</h1>
-            <div class="rowMeta">更新日: ${a.date}・カテゴリ: <a href="#/category/${cat.key}">${cat.label}</a></div>
-          </header>
-          <hr style="border:none; border-top:1px solid color-mix(in oklab, var(--ink) 14%, transparent); margin:16px 0">
-          <section>${a.body}</section>
-        </article>
-      `;
-      focusMain();
-    }
-
-    function renderNotFound(app){
-      app.innerHTML = `
-        <section class="hero" style="grid-template-columns:1fr">
-          <div class="heroCard">
-            <h1>ページが見つかりません</h1>
-            <p class="lead">URLをご確認のうえ、トップにお戻りください。</p>
-            <div class="ctaRow"><a class="btn primary" href="#/">トップへ戻る</a></div>
-          </div>
-        </section>
-      `;
-      focusMain();
-    }
-
-    function focusMain(){ $("#app").focus({preventScroll:true}); }
-
-    // ====== ナビ（モバイルドロワー） ======
-    const drawer = $("#drawer");
-    const menuBtn = $("#menuBtn");
-    const openDrawer = () => {
-      drawer.classList.add("open");
-      drawer.setAttribute("aria-hidden","false");
-      menuBtn.setAttribute("aria-expanded","true");
-    }
-    const closeDrawer = () => {
-      drawer.classList.remove("open");
-      drawer.setAttribute("aria-hidden","true");
-      menuBtn.setAttribute("aria-expanded","false");
-    }
-    menuBtn.addEventListener("click", () => {
-      const open = drawer.classList.contains("open");
-      open ? closeDrawer() : openDrawer();
-    });
-    drawer.addEventListener("click", e => {
-      if(e.target.tagName === "A") closeDrawer();
-    });
-
-    // ====== 起動 ======
-    window.addEventListener("hashchange", route);
-    window.addEventListener("DOMContentLoaded", () => {
-      route();
-      $("#year").textContent = new Date().getFullYear();
-    });
-  </script>
+/* ===== Boot ===== */
+window.addEventListener("hashchange", route);
+window.addEventListener("DOMContentLoaded", ()=>{
+  route();
+  $("#year").textContent=new Date().getFullYear();
+});
+</script>
 </body>
 </html>
