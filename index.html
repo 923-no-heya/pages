@@ -177,9 +177,14 @@
       const hideViewAllKeys = new Set(["stat","math","memoir","others"]);
 
       html += SITE.categories.map(c=>{
-        const inner = c.subcategories
-          ? c.subcategories.map(sc=>SubcatCard(c.key, sc)).join("")
-          : (c.articles||[]).map(ArticleCard).join("");
+        let inner = "";
+        if (c.subcategories) {
+        inner = c.subcategories.map(sc=>SubcatCard(c.key, sc)).join("");
+        } else if (c.articles) {
+        // ★走れメラスだけ最新3件に絞る
+        const list = c.key === "melas" ? c.articles.slice(0,3) : c.articles;
+        inner = list.map(ArticleCard).join("");
+        }
 
         return `
           <section class="catSection container" id="${c.key}">
