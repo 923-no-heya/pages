@@ -1,344 +1,345 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>9 × 2 = 3 の部屋</title>
-<meta name="description" content="ある研究者のドキュメントを参照できるサイトです。" />
-<meta name="theme-color" content="#ffffff" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  /* ===== Design Tokens ===== */
-  :root{
-    --bg:#f7fafc; --bg-grad1:#eef6ff; --bg-grad2:#ffffff;
-    --surface:#ffffff; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
-    --brand:#2563eb; --brand-2:#06b6d4; --accent:#0ea5e9;
-    --radius:16px; --radius-sm:12px; --shadow-sm:0 4px 12px rgba(15,23,42,.08);
-    --shadow-md:0 12px 28px rgba(15,23,42,.10);
-    --max:1120px; --trans:220ms cubic-bezier(.22,.61,.36,1);
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>9 × 2 = 3 の部屋</title>
+  <meta name="description" content="" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fafafa; --surface:#fff; --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
+      --brand:#3b82f6; --brand-2:#06b6d4; --radius:20px; --shadow:0 8px 20px rgba(0,0,0,.06); --max:1200px;
+    }
+    body{margin:0;font:16px/1.65 Inter,"Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg)}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:var(--max);margin:0 auto;padding:0 32px}
 
-  /* ===== Base ===== */
-  *{box-sizing:border-box}
-  body{
-    margin:0; font:16px/1.7 Inter,"Noto Sans JP",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    color:var(--ink);
-    background:
-      radial-gradient(900px 420px at 10% -10%, rgba(14,165,233,.15), transparent 60%),
-      radial-gradient(700px 380px at 100% 0%, rgba(99,102,241,.12), transparent 55%),
-      linear-gradient(160deg,var(--bg-grad1),var(--bg-grad2));
-  }
-  a{color:inherit;text-decoration:none}
-  .container{max-width:var(--max);margin:0 auto;padding:0 24px}
+    /* Header */
+    header{background:var(--surface);box-shadow:var(--shadow);position:sticky;top:0;z-index:50}
+    .nav{display:flex;align-items:center;gap:16px;padding:16px 32px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px;color:var(--brand)}
+    .logo{display:inline-block}
+    .spacer{flex:1}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}
+    .tab{padding:8px 14px;border-radius:10px;font-weight:600;color:var(--ink);transition:.2s;background:#f3f4f6}
+    .tab:hover{background:#e5e7eb}
+    .tab[aria-current="page"]{background:var(--brand);color:#fff}
+    .menuButton{display:none;background:none;border:none;cursor:pointer}
+    .menuIcon{width:24px;height:2px;background:var(--ink);position:relative;display:block}
+    .menuIcon::before,.menuIcon::after{content:"";position:absolute;left:0;width:24px;height:2px;background:var(--ink);}
+    .menuIcon::before{top:-7px}
+    .menuIcon::after{top:7px}
+    @media(max-width:820px){.tabs{display:none}.menuButton{display:inline-flex;align-items:center;justify-content:center;padding:8px}}
 
-  /* ===== Header (glass, underline tabs) ===== */
-  header{
-    position:sticky; top:0; z-index:50;
-    backdrop-filter:saturate(1.2) blur(8px);
-    background:color-mix(in oklab, #ffffff 86%, transparent);
-    border-bottom:1px solid var(--line);
-  }
-  .nav{
-    display:flex; align-items:center; gap:16px; padding:14px 0;
-  }
-  .brand{display:flex; align-items:center; gap:10px; font-weight:800; font-size:18px; color:var(--brand)}
-  .logo{
-    width:30px;height:30px;border-radius:10px;
-    background:linear-gradient(135deg,var(--brand),var(--brand-2));
-    box-shadow:var(--shadow-sm);
-  }
-  .spacer{flex:1}
-  .tabs{display:flex; gap:6px; flex-wrap:wrap; position:relative}
-  .tab{
-    position:relative; padding:10px 12px; border-radius:10px;
-    color:#0f172a; background:transparent; font-weight:600;
-    transition:background var(--trans), color var(--trans), transform var(--trans);
-  }
-  .tab:hover{background:#f1f5f9}
-  .tab[aria-current="page"]{
-    color:var(--brand);
-  }
-  .tab[aria-current="page"]::after{
-    content:""; position:absolute; left:12px; right:12px; bottom:-2px; height:3px; border-radius:99px;
-    background:linear-gradient(90deg,var(--brand),var(--brand-2));
-  }
-  .menuButton{
-    display:none; padding:8px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; cursor:pointer;
-  }
-  @media(max-width:880px){
-    .tabs{display:none}
-    .menuButton{display:inline-block}
-  }
+    /* Drawer */
+    .drawer{position:fixed;inset:0 0 0 auto;width:80%;max-width:320px;transform:translateX(100%);background:var(--surface);box-shadow:var(--shadow);transition:.25s;display:flex;flex-direction:column;padding:20px;gap:12px;z-index:60}
+    .drawer.open{transform:translateX(0)}
+    .drawer a{padding:12px;border-radius:8px;background:#f3f4f6}
 
-  /* ===== Drawer (with overlay) ===== */
-  .backdrop{
-    position:fixed; inset:0; background:rgba(2,6,23,.35); backdrop-filter:blur(2px);
-    opacity:0; visibility:hidden; transition:opacity var(--trans), visibility var(--trans); z-index:59;
-  }
-  .backdrop.open{opacity:1; visibility:visible}
-  .drawer{
-    position:fixed; inset:0 0 0 auto; width:min(86%,340px);
-    transform:translateX(105%); background:var(--surface);
-    border-left:1px solid var(--line); box-shadow:var(--shadow-md);
-    transition:transform var(--trans); display:flex; flex-direction:column; gap:10px; padding:18px; z-index:60;
-  }
-  .drawer.open{transform:none}
-  .drawer h3{margin:0 0 8px}
-  .drawer a{padding:12px;border-radius:10px;background:#f8fafc}
-  .drawer a[aria-current="page"]{background:linear-gradient(135deg,#e0f2fe,#eff6ff); font-weight:700; color:#0c4a6e}
-  .drawer .close{align-self:flex-end; background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 10px; cursor:pointer}
+    /* Hero */
+    main{min-height:70vh}
+    .hero{position:relative;color:#fff;text-align:center;padding:120px 32px}
+    .hero-background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;filter:brightness(0.6)}
+    .hero h1{font-size:clamp(32px,6vw,52px);margin:0 0 16px;font-weight:800}
+    .ctaRow{margin-top:28px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+    .btn{padding:12px 20px;border-radius:12px;font-weight:700;transition:.2s}
+    .btn.primary{background:#fff;color:var(--brand)}
+    .btn.secondary{background:rgba(255,255,255,.2);color:#fff;border:1px solid #fff}
+    .btn:hover{opacity:.9}
 
-  /* ===== Hero ===== */
-  main{min-height:70vh}
-  .hero{
-    text-align:center; color:#0b2239; padding:64px 0 40px;
-  }
-  .hero .panel{
-    display:inline-block; max-width:780px; padding:24px 22px;
-    background:rgba(255,255,255,.9); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow-sm);
-  }
-  .hero h1{font-size:clamp(28px,5.6vw,48px); margin:0 0 10px; font-weight:800; letter-spacing:.01em}
-  .hero p{margin:0 auto; max-width:720px; color:var(--muted)}
-  .ctaRow{margin-top:18px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap}
-  .btn{
-    padding:12px 16px; border-radius:12px; font-weight:700; transition:transform var(--trans), box-shadow var(--trans), opacity var(--trans);
-    display:inline-flex; align-items:center; gap:8px;
-  }
-  .btn.primary{background:#0ea5e9; color:#fff; box-shadow:var(--shadow-sm)}
-  .btn.secondary{background:#fff; border:1px solid var(--line); color:#0f172a}
-  .btn:hover{transform:translateY(-1px); box-shadow:var(--shadow-md)}
+    /* Category Sections */
+    .catSection{padding:60px 32px;position:relative}
+    .catHeader{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 24px}
+    .catHeader h2{margin:0;font-size:28px;font-weight:800;background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .catHeader p{flex-basis:100%;margin:8px 0 0;color:var(--muted)}
+    .viewAll{padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#f9fafb;color:var(--brand);font-weight:600}
+    .articleGrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .aCard{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:8px;transition:all .2s ease}
+    .aCard:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+    .aCard h3{margin:0;font-size:20px}
+    .aCard .desc{color:var(--muted)}
+    .aCard .more{margin-top:auto;color:var(--brand);font-weight:700}
 
-  /* ===== Category Sections ===== */
-  .section{padding:28px 0}
-  .catHeader{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:10px}
-  .catHeader h2{margin:0; font-size:22px; color:#0f172a}
-  .catHeader p{margin:4px 0 0; color:var(--muted)}
-  .articleGrid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-  .aCard{
-    background:var(--surface); border-radius:var(--radius); border:1px solid var(--line);
-    padding:18px; display:flex; flex-direction:column; gap:8px; box-shadow:var(--shadow-sm);
-    transition:transform var(--trans), box-shadow var(--trans);
-  }
-  .aCard:hover{transform:translateY(-3px); box-shadow:var(--shadow-md)}
-  .aCard h3{margin:0; font-size:18px}
-  .aCard .meta{font-size:12px; color:var(--muted)}
-  .aCard .desc{color:var(--muted)}
-  .aCard .more{margin-top:auto; align-self:flex-start; color:var(--brand); font-weight:600}
+    /* Lists for PDFs */
+    .pdfList{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+    .pdfList li a{display:block;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#f9fafb}
 
-  /* ===== Lists / Article ===== */
-  .list{display:grid; gap:12px; padding:24px 0}
-  .row{padding:16px; border-radius:12px; background:#f8fafc; transition:background var(--trans)}
-  .row:hover{background:#e2e8f0}
-  .rowTitle{font-weight:700}
-  .rowMeta{font-size:12px; color:var(--muted)}
-  article{
-    background:var(--surface); box-shadow:var(--shadow-sm); padding:28px; border-radius:var(--radius); margin:20px 0;
-    border:1px solid var(--line);
-  }
-  .breadcrumbs{font-size:12px; color:var(--muted); margin:16px 0 6px}
-  .breadcrumbs a{color:var(--muted)}
-  .chip{display:inline-block; border:1px solid var(--line); border-radius:999px; padding:2px 8px; font-size:.8rem; color:var(--muted)}
+    /* List / Article pages */
+    .list{display:grid;gap:12px;padding:24px}
+    .row{padding:16px;border-radius:12px;background:#f3f4f6;transition:.2s}
+    .row:hover{background:#e5e7eb}
+    .rowTitle{font-weight:700}
+    .rowMeta{font-size:12px;color:var(--muted)}
+    article{background:var(--surface);box-shadow:var(--shadow);padding:36px;border-radius:var(--radius);margin:24px}
+    .breadcrumbs{font-size:12px;color:var(--muted);margin-bottom:12px}
 
-  /* ===== Footer ===== */
-  footer{padding:28px 0; text-align:center; color:var(--muted); background:#f8fafc; margin-top:40px; border-top:1px solid var(--line)}
-
-  /* ===== Focus ===== */
-  :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:10px}
-</style>
+    /* Footer */
+    footer{padding:32px;text-align:center;color:var(--muted);background:#f3f4f6;margin-top:60px}
+  </style>
 </head>
 <body>
   <header>
-    <div class="container nav" role="navigation" aria-label="メイン">
-      <a class="brand" href="#/"><span class="logo" aria-hidden="true"></span><span>9 × 2 = 3 の部屋</span></a>
+    <nav class="nav container">
+      <a class="brand" href="#/">
+        <!-- 統計学っぽいロゴ（散布図＋回帰線） -->
+        <svg class="logo" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+          <rect x="1" y="1" width="26" height="26" rx="8" fill="url(#g)"/>
+          <g stroke="white" stroke-linecap="round" stroke-width="1.6">
+            <path d="M6 20 C10 16 14 14 22 10" opacity=".85"/>
+            <circle cx="8" cy="18" r="1.6" fill="white"/>
+            <circle cx="13" cy="15" r="1.6" fill="white"/>
+            <circle cx="18" cy="13" r="1.6" fill="white"/>
+            <circle cx="22" cy="10" r="1.6" fill="white"/>
+          </g>
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3b82f6"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>9 × 2 = 3 の部屋</span>
+      </a>
       <div class="spacer"></div>
-      <div class="tabs" id="tabs">
-        <a class="tab" data-key="home" href="#/">トップ</a>
-        <a class="tab" data-key="stat" href="#/category/stat">統計学</a>
-        <a class="tab" data-key="math" href="#/category/math">数学</a>
-        <a class="tab" data-key="others" href="#/category/others">その他の解析</a>
-        <a class="tab" data-key="melas" href="#/category/melas">走れメラス</a>
-        <a class="tab" data-key="memoir" href="#/category/memoir">手記</a>
+      <div class="tabs">
+        <a class="tab" href="#/">トップ</a>
+        <a class="tab" href="#/category/stat">統計学</a>
+        <a class="tab" href="#/category/math">数学</a>
+        <a class="tab" href="#/category/others">その他の解析</a>
+        <a class="tab" href="#/category/melas">走れメラス</a>
+        <a class="tab" href="#/category/memoir">手記</a>
       </div>
-      <button class="menuButton" id="menuBtn" aria-haspopup="dialog" aria-controls="drawer">メニュー</button>
-    </div>
+      <button class="menuButton" id="menuBtn" aria-label="メニュー"><span class="menuIcon"></span></button>
+    </nav>
   </header>
 
-  <!-- Drawer + Backdrop -->
-  <div class="backdrop" id="backdrop" hidden></div>
-  <aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="メニュー">
-    <button class="close" id="closeDrawer" aria-label="閉じる">✕</button>
-    <h3>メニュー</h3>
-    <a data-key="home" href="#/">トップ</a>
-    <a data-key="stat" href="#/category/stat">統計学</a>
-    <a data-key="math" href="#/category/math">数学</a>
-    <a data-key="others" href="#/category/others">その他の解析</a>
-    <a data-key="melas" href="#/category/melas">走れメラス</a>
-    <a data-key="memoir" href="#/category/memoir">手記</a>
+  <aside id="drawer" class="drawer">
+    <a href="#/">トップ</a>
+    <a href="#/category/stat">統計学</a>
+    <a href="#/category/math">数学</a>
+    <a href="#/category/others">その他の解析</a>
+    <a href="#/category/melas">走れメラス</a>
+    <a href="#/category/memoir">手記</a>
   </aside>
 
-  <main id="app" class="container" tabindex="-1"></main>
+  <main id="app"></main>
 
-  <footer>
-    © <span id="year"></span> 9 × 2 = 3 の部屋 — ある研究者のドキュメントを参照できるサイトです。
-  </footer>
+  <footer>© <span id="year"></span> 9 × 2 = 3 の部屋</footer>
 
-<script>
-/* ===== Site Data (そのまま流用OK) ===== */
-const SITE = {
-  title:"9 × 2 = 3 の部屋",
-  tagline:"ある研究者のドキュメントを参照できるサイトです。",
-  categories:[
-    {key:"stat",label:"統計学",summary:"推測・検定・多変量解析の要点を学ぶ。"},
-    {key:"math",label:"数学",summary:"線形代数・微積・最適化など理論基盤。"},
-    {key:"others",label:"その他の解析",summary:"数値計算・シミュレーションの実践。"},
-    {key:"melas",label:"走れメラス",summary:"研究に寄り添う断章・エッセイ。"},
-    {key:"memoir",label:"手記",summary:"研究メモや雑記。"},
-  ],
-  articles:[
-    {id:"stat-001",category:"stat",title:"統計学の序",date:"2025-04-01",description:"統計学の見取り図と位置づけ。",body:"<p>統計学とは...</p>"},
-    {id:"stat-002",category:"stat",title:"回帰分析入門",date:"2025-04-15",description:"回帰分析の基礎。",body:"<p>...</p>"},
-    {id:"stat-003",category:"stat",title:"検定の考え方",date:"2025-04-20",description:"仮説検定の基礎。",body:"<p>...</p>"},
-    {id:"math-001",category:"math",title:"線形代数のゼロ章",date:"2025-04-05",description:"写像の視点から線形代数を概観。",body:"<p>...</p>"},
-    {id:"math-002",category:"math",title:"微分積分の直観",date:"2025-04-10",description:"解析の直観的理解。",body:"<p>...</p>"},
-    {id:"math-003",category:"math",title:"最適化の基礎",date:"2025-04-18",description:"最適化理論入門。",body:"<p>...</p>"},
-    {id:"others-001",category:"others",title:"数値積分の実務的コツ",date:"2025-05-20",description:"台形則から適応的手法まで。",body:"<p>...</p>"}
-  ]
-};
+  <script>
+    const SITE = {
+      title:"9 × 2 = 3 の部屋",
+      categories:[
+        {key:"stat",label:"統計学",summary:"推測・検定・多変量解析の要点を学ぶ。",
+          subcategories:[
+            { key:"stat-basic-intro", label:"統計学の基礎の基礎", articles: [] },
+            { key:"stat-basic", label:"統計学の基礎", articles:[
+              { title:"CH01　序", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_bd0a27dd-0d69-4b7d-bb8b-c341f5d32c43.pdf" },
+              { title:"CH02　確率変数の種類", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_98ff72fe-8f63-414f-915c-8f34428060b9.pdf" },
+              { title:"CH03　確率変数の可視化", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_373d9e33-3e39-42d3-8651-9bd7fcd71dc0.pdf" },
+              { title:"CH04　統計に必要な数学", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_f0353b81-e370-41ba-b06a-1137812e9275.pdf" },
+              { title:"CH05　記述統計学", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_07ed6025-c1df-4ac3-9227-39548e34eaef.pdf" },
+              { title:"CH06　推測統計学", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_21658758-7ae1-45da-95ad-69233ff8f217.pdf" },
+              { title:"CH07　全体のまとめ", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_863e12b6-19db-467b-8d26-2a51277a0a44.pdf" },
+            ]},
+            { key:"stat-main", label:"統計学", articles:[
+              { title:"CH01　序", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_c0110754-da37-4c2a-a3cd-4d84443b3c1f.pdf" },
+              { title:"CH02　確率変数の種類", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_ca33c29e-f36a-4270-8018-24828f7a15c4.pdf" },
+              { title:"CH03　データの可視化", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_43592dbf-5dc9-4bbe-a172-363d631f8ae6.pdf" },
+              { title:"CH04　ヒストグラムと箱ひげによるデータの可視化", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_d651b72e-6ca7-4542-96c0-c054d2018daa.pdf" },
+              { title:"CH05　確率変数の可視化の応用", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_3d581490-dea2-430e-8cec-7c209e92051d.pdf" },
+              { title:"CH06　統計に必要な数学", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_d2204786-691d-414c-9783-9b73d9fc58ae.pdf" },
+              { title:"CH07　集合と場合の数", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_9123e290-ea36-494d-ab23-38d178d202c9.pdf" },
+              { title:"CH08　平均と標準偏差および代表値", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_cb00d198-a369-4d28-8462-235d64e7bc49.pdf" },
+              { title:"CH09　偏差値", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_8a33bfb4-e630-4e03-8273-bbf770a27205.pdf" },
+              { title:"CH10　論理", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_809812e0-6fb6-4897-b56f-9c194b7e2f78.pdf" },
+              { title:"CH11　複数グループの平均と分散", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_025b221b-70e9-4aab-8daf-fc4551978142.pdf" },
+              { title:"CH12　様々な平均", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_a6125b55-30af-4b72-9bc1-f9ce030a306d.pdf" },
+              { title:"CH13　確率密度の期待値", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_6f77563b-6332-427c-a0af-c42c25ce2a33.pdf" },
+              { title:"CH14　確率", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_2851bbfb-20f9-4718-9bcd-b56a8c365bc9.pdf" },
+              { title:"CH15　確率分布と確率密度分布", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_e6cfba04-355f-411e-83e3-05d8e0abbeea.pdf" },
+              { title:"CH16　正規分布", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_39b83fd8-8dbe-431f-b74e-51523a124324.pdf" },
+              { title:"CH17　 均一分布", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_cb05ad6c-c3a8-4f56-a414-cf84d52904fe.pdf" },
+              { title:"CH18　 ベルヌーイ分布/二項分布", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_3a553244-2474-4138-afa1-1627a979e01d.pdf" },
+              { title:"CH19　 ポアソン分布", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_b0ed170b-cc9e-4ba4-bc48-d5d67cc9efcf.pdf" },
+              { title:"CH20　指数分布/ロジスチィックス曲線", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_5a7516de-06a0-4222-aa98-4b7df22f8c2d.pdf" },
+              { title:"CH21　典型的な分布と関連する確率密度分布", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_b44d0894-000e-4b25-b26b-0d49af2bd3fe.pdf" },
+              { title:"CH22　その他の確率分布と確率密度分布", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_dbaa646d-26ce-46cd-9050-7b557ffb2fa8.pdf" },
+              { title:"CH23　 P点とP値", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_ecf3de9e-2388-46d2-ae81-91998b2f6935.pdf" },
+              { title:"CH24　自由度", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_eca78afb-b509-444e-8b13-be0976654b0f.pdf" },
+              { title:"CH25　確率母関数", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_b2ef8428-d152-472f-a9aa-95b1a46333e0.pdf" },
+              { title:"CH26　キュムラント", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_f3501e84-d2e2-44e2-b1b6-c8cff7e5f458.pdf" },
+              { title:"CH27　ピアソン分布", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_7613b375-2e5a-49ec-ae50-c37d21932e49.pdf" },
+              { title:"CH28　中心極限定理", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_98bb14e6-f6bd-4f61-ac3d-ec5ba5cd3c9b.pdf" },
+              { title:"CH29　相関係数", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_5acfe827-9e81-47b5-9a37-210289d8ed5d.pdf" },
+              { title:"CH30　相関係数に対する確率分布", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_cf563231-6e23-43f1-9566-e0ba1dab5a4b.pdf" },
+              { title:"CH31　単回帰分析", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_b35098d9-806d-4de7-ace2-cf73cd1116b5.pdf" },
+              { title:"CH32　アンケートの取り方", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_8081ab28-590f-47e6-9571-3a08618c938b.pdf" },
+              { title:"CH33　標本の抽出方法", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_96b752cd-9f88-4d3a-8ba1-b9240a681292.pdf" },
+              { title:"CH34　標本推定", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_a2b9a3ed-c56b-4369-8457-7ed9910a5080.pdf" },
+              { title:"CH35　標本検定", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_b0033320-0ab7-45ae-a895-cc04c44c9a76.pdf" },
+              { title:"CH36　在庫", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_4a0bdc52-6509-45d7-a6b8-a12f480149f8.pdf" },
+              { title:"CH37　標本相関係数", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_e1b1a309-c7be-43f6-b4f1-fcadc781ec1f.pdf" },
+              { title:"CH38　標本単回帰分析", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_5ba9bee8-6abe-4f79-90af-2280eb1e672e.pdf" },
+              { title:"CH39　乱数", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_cd303ef5-38d2-47bb-ae60-7575369ea224.pdf" },
+              { title:"CH40　Excel操作まとめ", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_0869d765-d1bb-4306-8580-15de95d6ba50.pdf" },
+              { title:"参考文献", url:"https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_eba1507a-8d17-4ce7-8f73-7551875e964c.pdf" },
+            ]}
+          ]
+        },
+        {key:"math",label:"数学",summary:"線形代数・微積・最適化など理論基盤。",
+         articles:[
+          {id:"math-001", title:"線形代数のゼロ章", date:"2025-04-05", description:"写像の視点から線形代数を概観。", body:"<p>...</p>"},
+          {id:"math-002", title:"微分積分の直観", date:"2025-04-10", description:"解析の直観的理解。", body:"<p>...</p>"},
+          {id:"math-003", title:"最適化の基礎", date:"2025-04-18", description:"最適化理論入門。", body:"<p>...</p>"}
+         ]
+        },
+        {key:"others",label:"その他の解析",summary:"数値計算・シミュレーションの実践。",
+         articles:[{id:"others-001", title:"数値積分の実務的コツ", date:"2025-05-20", description:"台形則から適応的手法まで。", body:"<p>...</p>"}]
+        },
+        {key:"melas",label:"走れメラス",summary:"研究に寄り添う断章・エッセイ。", articles:[]},
+        {key:"memoir",label:"手記",summary:"研究メモや雑記。", articles:[]}
+      ]
+    };
 
-/* ===== Helpers ===== */
-const $ = (s,el=document)=>el.querySelector(s);
-const esc = s => String(s).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;'}[m]));
-const fmt = d => {const t=new Date(d); return isNaN(t)?d:`${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`};
+    const $=s=>document.querySelector(s);
 
-/* ===== Router ===== */
-function route(){
-  const hash=location.hash||"#/";
-  if(hash==="#/"||hash==="#"){renderHome(); setActiveTab("home"); return}
-  const parts=hash.split("/");
-  if(parts[1]==="category"){renderCategory(parts[2]); setActiveTab(parts[2]); return}
-  if(parts[1]==="article"){renderArticle(parts[2]); setActiveTab(null); return}
-  $("#app").innerHTML=`<section style="padding:40px 0">ページが見つかりません</section>`;
-}
+    function route(){
+      const hash=location.hash||"#/";
+      const app=$("#app");
+      const [,root,p1,p2] = hash.split("/");
+      if(root===""||root==="#"){renderHome(app);return}
+      if(root==="category" && p1 && !p2){renderCategory(app,p1);return}
+      if(root==="subcategory" && p1 && p2){renderSubcategory(app,p1,p2);return}
+      if(root==="article" && p1){renderArticle(app,p1);return}
+      app.innerHTML="<p style='padding:40px'>ページが見つかりません</p>";
+    }
 
-/* ===== Views ===== */
-function renderHome(){
-  const app=$("#app");
-  // Hero
-  let html=`<section class="hero">
-    <div class="panel">
-      <h1>${esc(SITE.title)}</h1>
-      <p>${esc(SITE.tagline)}</p>
-      <div class="ctaRow">
-        <a class="btn primary" href="#/category/stat">統計学から始める →</a>
-        <a class="btn secondary" href="#/category/math">数学へ →</a>
-      </div>
-    </div>
-  </section>`;
+    // ===== Home =====
+    function renderHome(app){
+      let html=`<section class=\"hero\">\n        <img src=\"https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E3%82%B9%E3%82%A4%E3%82%B9.jpg\" alt=\"著者と牛の写真\" class=\"hero-background\">\n        <h1>${SITE.title}</h1>\n        <div class=\"ctaRow\"><a class=\"btn primary\" href=\"#/category/stat\">統計学から始める</a><a class=\"btn secondary\" href=\"#/category/math\">数学へ</a></div>\n      </section>`;
 
-  // Category sections + latest 3
-  html += SITE.categories.map(c=>{
-    const list=SITE.articles.filter(a=>a.category===c.key).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
-    return `
-      <section class="section">
-        <div class="catHeader">
-          <h2>${esc(c.label)}</h2>
-          <a class="btn secondary" href="#/category/${c.key}" style="padding:8px 12px">記事一覧へ</a>
-          <p>${esc(c.summary)}</p>
-        </div>
-        <div class="articleGrid">
-          ${list.length?list.map(a=>ArticleCard(a)).join(""):`<div class="aCard"><h3>記事がありません</h3><p class="desc">公開までお待ちください。</p></div>`}
-        </div>
-      </section>`;
-  }).join("");
-  app.innerHTML = html;
-}
+      html+= SITE.categories.map(c=>{
+        const latest = getLatestForCategory(c,3);
+        return `
+          <section class='catSection container' id='${c.key}'>
+            <div class='catHeader'>
+              <h2>${c.label}</h2>
+              <a href='#/category/${c.key}' class='viewAll'>すべて見る</a>
+              <p>${c.summary || ''}</p>
+            </div>
+            <div class='articleGrid'>
+              ${latest.map(a=>ArticleCard(a)).join('') || `<div class='aCard'><h3>記事がありません</h3><div class='desc'>公開までお待ちください。</div></div>`}
+            </div>
+          </section>`;
+      }).join("");
+      app.innerHTML=html;
+    }
 
-function ArticleCard(a){
-  return `<a class="aCard" href="#/article/${a.id}">
-    <h3>${esc(a.title)}</h3>
-    <div class="meta">更新日: ${fmt(a.date)}</div>
-    <div class="desc">${a.description?esc(a.description):""}</div>
-    <span class="more">続きを読む →</span>
-  </a>`;
-}
+    function getLatestForCategory(cat, n){
+      // subcategories (external PDFs) 優先、なければ内部 articles
+      if(cat.subcategories){
+        const flat = cat.subcategories.flatMap(sc => sc.articles.map(a=>({ ...a, _external:true })));
+        return flat.slice(0, n);
+      }
+      return (cat.articles||[]).slice(0,n);
+    }
 
-function renderCategory(key){
-  const app=$("#app");
-  const cat=SITE.categories.find(c=>c.key===key);
-  if(!cat){app.innerHTML="<section style='padding:40px 0'>カテゴリが見つかりません</section>";return}
-  const list=SITE.articles.filter(a=>a.category===key).sort((a,b)=>b.date.localeCompare(a.date));
-  app.innerHTML = `
-    <div class="breadcrumbs"><a href="#/">トップ</a> › <span>${esc(cat.label)}</span></div>
-    <section class="section">
-      <div class="catHeader">
-        <h2>${esc(cat.label)}</h2>
-        <p>${esc(cat.summary)}</p>
-      </div>
-      <div class="articleGrid">
-        ${list.map(a=>ArticleCard(a)).join("")}
-      </div>
-    </section>`;
-}
+    // ===== Cards (internal or external) =====
+    function ArticleCard(a){
+      const inner = `
+        <h3>${a.title}</h3>
+        <div class='desc'>${a.description || ''}</div>
+        <span class='more'>本文を見る →</span>`;
+      if(a._external || a.url){
+        return `<a class='aCard' href='${a.url}' target='_blank' rel='noopener'>${inner}</a>`;
+      }
+      // internal
+      return `<a class='aCard' href='#/article/${a.id}'>${inner}</a>`;
+    }
 
-function renderArticle(id){
-  const app=$("#app");
-  const a=SITE.articles.find(x=>x.id===id);
-  if(!a){app.innerHTML="<section style='padding:40px 0'>記事が見つかりません</section>";return}
-  const cat=SITE.categories.find(c=>c.key===a.category);
-  app.innerHTML = `
-    <div class="breadcrumbs"><a href="#/">トップ</a> › <a href="#/category/${cat.key}">${esc(cat.label)}</a> › <span>${esc(a.title)}</span></div>
-    <article>
-      <div class="rowMeta" style="margin-bottom:6px"><span class="chip">${fmt(a.date)}</span></div>
-      <h1 style="margin:8px 0 12px">${esc(a.title)}</h1>
-      <div>${a.body}</div>
-    </article>
-  `;
-}
+    // ===== Category =====
+    function renderCategory(app,key){
+      const cat = SITE.categories.find(c=>c.key===key);
+      if(!cat){app.innerHTML="<p>カテゴリが見つかりません</p>";return}
+      if(cat.subcategories){
+        app.innerHTML = `
+          <section class='catSection container'>
+            <div class='catHeader'>
+              <h2>${cat.label}</h2>
+              <p>${cat.summary||''}</p>
+            </div>
+            ${cat.subcategories.map(sc=>SubcatBlock(cat.key, sc)).join('')}
+          </section>`;
+        return;
+      }
+      // fallback to internal article cards
+      const list=(cat.articles||[]);
+      app.innerHTML=`
+        <section class='catSection container'>
+          <div class='catHeader'>
+            <h2>${cat.label}</h2>
+            <p>${cat.summary||''}</p>
+          </div>
+          <div class='articleGrid'>
+            ${list.map(ArticleCard).join('')}
+          </div>
+        </section>`;
+    }
 
-/* ===== Active tab sync ===== */
-function setActiveTab(key){
-  // header tabs
-  document.querySelectorAll(".tab").forEach(a=>{
-    const match = a.dataset.key === key || (key==="home" && a.dataset.key==="home");
-    a.setAttribute("aria-current", match ? "page" : "false");
-  });
-  // drawer items
-  document.querySelectorAll("#drawer a").forEach(a=>{
-    const match = a.dataset.key === key || (key==="home" && a.dataset.key==="home");
-    if(match) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
-  });
-}
+    function SubcatBlock(parentKey, sc){
+      const list = sc.articles;
+      return `
+        <section class='catSection' id='${sc.key}'>
+          <div class='catHeader'>
+            <h2>${sc.label}</h2>
+            <a class='viewAll' href='#/subcategory/${parentKey}/${sc.key}'>セクションを開く</a>
+          </div>
+          <ul class='pdfList'>
+            ${list.slice(0,12).map(item=>`<li><a href='${item.url}' target='_blank' rel='noopener'>${item.title}</a></li>`).join('')}
+          </ul>
+        </section>`;
+    }
 
-/* ===== Drawer behavior ===== */
-const drawer=$("#drawer"), menuBtn=$("#menuBtn"), closeBtn=$("#closeDrawer"), backdrop=$("#backdrop");
-function openDrawer(){
-  drawer.classList.add("open"); backdrop.classList.add("open"); backdrop.hidden=false;
-  drawer.querySelector("a").focus();
-}
-function closeDrawer(){
-  drawer.classList.remove("open"); backdrop.classList.remove("open");
-  setTimeout(()=>backdrop.hidden=true, 200);
-  menuBtn.focus();
-}
-menuBtn.addEventListener("click", openDrawer);
-closeBtn.addEventListener("click", closeDrawer);
-backdrop.addEventListener("click", closeDrawer);
-drawer.addEventListener("click", e => { if(e.target.tagName==="A") closeDrawer(); });
-document.addEventListener("keydown", e => {
-  if(e.key==="Escape" && drawer.classList.contains("open")) closeDrawer();
-});
+    // ===== Subcategory (full list) =====
+    function renderSubcategory(app,parentKey,subKey){
+      const cat = SITE.categories.find(c=>c.key===parentKey);
+      const sc = cat?.subcategories?.find(s=>s.key===subKey);
+      if(!cat || !sc){app.innerHTML="<p>セクションが見つかりません</p>";return}
+      app.innerHTML = `
+        <div class='breadcrumbs container'><a href='#/'>トップ</a> › <a href='#/category/${cat.key}'>${cat.label}</a> › ${sc.label}</div>
+        <section class='catSection container'>
+          <div class='catHeader'>
+            <h2>${sc.label}</h2>
+            <p>${cat.summary||''}</p>
+          </div>
+          <ul class='pdfList'>
+            ${sc.articles.map(item=>`<li><a href='${item.url}' target='_blank' rel='noopener'>${item.title}</a></li>`).join('')}
+          </ul>
+        </section>`;
+    }
 
-/* ===== Boot ===== */
-window.addEventListener("hashchange", route);
-window.addEventListener("DOMContentLoaded", ()=>{
-  route();
-  $("#year").textContent=new Date().getFullYear();
-});
-</script>
+    // ===== (legacy) Internal Article page =====
+    function renderArticle(app,id){
+      // Only used for non-PDF internal posts (e.g., math, others)
+      const cat = SITE.categories.find(c=> (c.articles||[]).some(a=>a.id===id));
+      const a = cat?.articles?.find(x=>x.id===id);
+      if(!a){app.innerHTML="<p>記事が見つかりません</p>";return}
+      app.innerHTML=`
+        <div class='breadcrumbs container'><a href='#/'>トップ</a> › <a href='#/category/${cat.key}'>${cat.label}</a> › ${a.title}</div>
+        <article class='container'><h1>${a.title}</h1><div>${a.body||''}</div></article>`;
+    }
+
+    // ===== Drawer =====
+    const drawer=$("#drawer"),menuBtn=$("#menuBtn");
+    menuBtn.addEventListener("click",()=>drawer.classList.toggle("open"));
+    drawer.addEventListener("click",e=>{if(e.target.tagName==="A")drawer.classList.remove("open")});
+
+    window.addEventListener("hashchange",route);
+    window.addEventListener("DOMContentLoaded",()=>{route();$("#year").textContent=new Date().getFullYear()});
+  </script>
 </body>
 </html>
