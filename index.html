@@ -9,10 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* ==== Light mode fixed ==== */
     :root{
       --bg:#fafafa; --surface:#fff; --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
       --brand:#3b82f6; --brand-2:#06b6d4; --radius:20px; --shadow:0 8px 20px rgba(0,0,0,.06); --max:1200px;
+      --chip:#f3f4f6; --chip-hover:#e5e7eb;
     }
+    *{box-sizing:border-box}
     body{margin:0;font:16px/1.65 Inter,"Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg)}
     a{text-decoration:none;color:inherit}
     .container{max-width:var(--max);margin:0 auto;padding:0 32px}
@@ -24,8 +27,8 @@
     .logo{display:inline-block}
     .spacer{flex:1}
     .tabs{display:flex;gap:8px;flex-wrap:wrap}
-    .tab{padding:8px 14px;border-radius:10px;font-weight:600;color:var(--ink);transition:.2s;background:#f3f4f6}
-    .tab:hover{background:#e5e7eb}
+    .tab{padding:8px 14px;border-radius:10px;font-weight:600;color:var(--ink);transition:.2s;background:var(--chip)}
+    .tab:hover{background:var(--chip-hover)}
     .tab[aria-current="page"]{background:var(--brand);color:#fff}
     .menuButton{display:none;background:none;border:none;cursor:pointer}
     .menuIcon{width:24px;height:2px;background:var(--ink);position:relative;display:block}
@@ -37,7 +40,7 @@
     /* Drawer */
     .drawer{position:fixed;inset:0 0 0 auto;width:80%;max-width:320px;transform:translateX(100%);background:var(--surface);box-shadow:var(--shadow);transition:.25s;display:flex;flex-direction:column;padding:20px;gap:12px;z-index:60}
     .drawer.open{transform:translateX(0)}
-    .drawer a{padding:12px;border-radius:8px;background:#f3f4f6}
+    .drawer a{padding:12px;border-radius:8px;background:var(--chip)}
 
     /* Hero */
     main{min-height:70vh}
@@ -50,43 +53,43 @@
     .btn.secondary{background:rgba(255,255,255,.2);color:#fff;border:1px solid #fff}
     .btn:hover{opacity:.9}
 
-    /* Category Sections */
+    /* Sections / Cards */
     .catSection{padding:60px 32px;position:relative}
     .catHeader{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 24px}
     .catHeader h2{margin:0;font-size:28px;font-weight:800;background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
     .catHeader p{flex-basis:100%;margin:8px 0 0;color:var(--muted)}
     .viewAll{padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#f9fafb;color:var(--brand);font-weight:600}
     .cardGrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+
+    /* Unified Card (Subcategory & Latest Article style) */
     .card{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:8px;transition:all .2s ease}
     .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
-    .cardTitle{font-size:20px;font-weight:700;margin:0}
-    .cardDesc{
-      color: var(--muted);
-      font-size:14px;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+    .cardTitle{margin:0;font-size:20px;font-weight:700}
+    .cardDesc{color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
     .cardMore{margin-top:auto;color:var(--brand);font-weight:700}
 
-    /* Lists for PDFs */
+    /* PDF list */
     .pdfList{list-style:none;padding:0;margin:0;display:grid;gap:10px}
     .pdfList li a{display:block;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#f9fafb}
 
-    /* Article pages */
+    /* Generic list & article */
+    .list{display:grid;gap:12px;padding:24px}
+    .row{padding:16px;border-radius:12px;background:#f3f4f6;transition:.2s}
+    .row:hover{background:#e5e7eb}
+    .rowTitle{font-weight:700}
+    .rowMeta{font-size:12px;color:var(--muted)}
     article{background:var(--surface);box-shadow:var(--shadow);padding:36px;border-radius:var(--radius);margin:24px}
     .breadcrumbs{font-size:12px;color:var(--muted);margin-bottom:12px}
 
     /* Footer */
     footer{padding:32px;text-align:center;color:var(--muted);background:#f3f4f6;margin-top:60px}
   </style>
-  <script src="site-data.js"></script>
 </head>
 <body>
   <header>
     <nav class="nav container">
       <a class="brand" href="#/">
+        <!-- 統計学っぽいロゴ（散布図＋回帰線） -->
         <svg class="logo" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
           <rect x="1" y="1" width="26" height="26" rx="8" fill="url(#g)"/>
           <g stroke="white" stroke-linecap="round" stroke-width="1.6">
@@ -131,12 +134,15 @@
 
   <footer>© <span id="year"></span> 9 × 2 = 3 の部屋</footer>
 
+  <!-- 重要：SITE は別ファイルから読み込み -->
+  <script src="site-data.js"></script>
+
   <script>
-    const $=s=>document.querySelector(s);
+    const $ = s => document.querySelector(s);
 
     function route(){
-      const hash=location.hash||"#/";
-      const app=$("#app");
+      const hash = location.hash || "#/";
+      const app = $("#app");
       const [,root,p1,p2] = hash.split("/");
       if(root===""||root==="#"){renderHome(app);return}
       if(root==="category" && p1 && !p2){renderCategory(app,p1);return}
@@ -145,68 +151,80 @@
       app.innerHTML="<p style='padding:40px'>ページが見つかりません</p>";
     }
 
+    /* ===== Cards ===== */
     function SubcatCard(parentKey, sc){
-      const desc = sc.summary || "";
+      // サブカテゴリカード（説明3行トリム）
       return `
         <a class="card" href="#/subcategory/${parentKey}/${sc.key}">
           <h3 class="cardTitle">${sc.label}</h3>
-          <div class="cardDesc">${desc}</div>
+          <div class="cardDesc">${sc.summary || ''}</div>
           <span class="cardMore">もっと見る →</span>
         </a>`;
     }
 
     function ArticleCard(a){
-      return `
-        <a class="card" href="${a.url || `#/article/${a.id}`}" ${a.url ? `target="_blank" rel="noopener"` : ""}>
-          <h3 class="cardTitle">${a.title}</h3>
-          <div class="cardDesc">${a.description || ""}</div>
-          <span class="cardMore">本文を見る →</span>
-        </a>`;
+      // 記事（外部PDFリンク）のカード：説明3行トリム
+      const inner = `
+        <h3 class="cardTitle">${a.title}</h3>
+        <div class="cardDesc">${a.description || ''}</div>
+        <span class="cardMore">本文を見る →</span>`;
+      if(a.url){
+        return `<a class="card" href="${a.url}" target="_blank" rel="noopener">${inner}</a>`;
+      }
+      return `<a class="card" href="#/article/${a.id || ''}">${inner}</a>`;
     }
 
+    /* ===== Home ===== */
     function renderHome(app){
       let html=`
         <section class="hero">
-          <img src="https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E3%82%B9%E3%82%A4%E3%82%B9.jpg" class="hero-background" alt="">
+          <img src="https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E3%82%B9%E3%82%A4%E3%82%B9.jpg" alt="著者と牛の写真" class="hero-background">
           <h1>${SITE.title}</h1>
           <div class="ctaRow">
-            <a class="btn primary" href="#/category/stat">統計学から始める</a>
-            <a class="btn secondary" href="#/category/math">数学へ</a>
+            <a class="btn primary" href="#/category/stat">著者略歴</a>
           </div>
         </section>`;
-      const hideViewAllKeys = new Set(["stat","math","memoir","others"]);
 
-      html += SITE.categories.map(c=>{
-        let inner = "";
-        if (c.subcategories) {
-        inner = c.subcategories.map(sc=>SubcatCard(c.key, sc)).join("");
-        } else if (c.articles) {
-        // ★走れメラスだけ最新3件に絞る
-        const list = c.key === "melas" ? c.articles.slice(0,3) : c.articles;
-        inner = list.map(ArticleCard).join("");
-        }
+        // 「すべて見る」を隠すカテゴリ
+        const hideViewAllKeys = new Set(["stat","math","memoir","others"]);
 
-        return `
-          <section class="catSection container" id="${c.key}">
-            <div class="catHeader">
-              <h2>${c.label}</h2>
-              ${hideViewAllKeys.has(c.key) ? "" : `<a class="viewAll" href="#/category/${c.key}">すべて見る</a>`}
-              <p>${c.summary || ''}</p>
-            </div>
-            <div class="cardGrid">${inner}</div>
-          </section>`;
-      }).join("");
+        html += SITE.categories.map(c=>{
+          let inner = "";
+          if (c.subcategories) {
+            // サブカテゴリカードを並べる
+            inner = c.subcategories.map(sc=>SubcatCard(c.key, sc)).join("");
+          } else if (c.articles) {
+            // 走れメラスだけ末尾3件、他は全件
+            const list = c.key === "melas" ? c.articles.slice(-3) : c.articles;
+            inner = list.map(ArticleCard).join("");
+          }
 
-      app.innerHTML = html;
+          return `
+            <section class="catSection container" id="${c.key}">
+              <div class="catHeader">
+                <h2>${c.label}</h2>
+                ${hideViewAllKeys.has(c.key) ? "" : `<a class="viewAll" href="#/category/${c.key}">すべて見る</a>`}
+                <p>${c.summary || ''}</p>
+              </div>
+              <div class="cardGrid">${inner || `<div class="card"><h3 class="cardTitle">コンテンツがありません</h3><div class="cardDesc">公開までお待ちください。</div></div>`}</div>
+            </section>`;
+        }).join("");
+
+      app.innerHTML=html;
     }
 
+    /* ===== Category page =====
+       統計学・数学はサブカテゴリカード＋説明
+       走れメラス/手記/その他は記事カード */
     function renderCategory(app,key){
       const cat = SITE.categories.find(c=>c.key===key);
       if(!cat){app.innerHTML="<p>カテゴリが見つかりません</p>";return}
+
+      // サブカテゴリがあればカードで一覧
       if(cat.subcategories){
         app.innerHTML = `
-          <section class='catSection container'>
-            <div class='catHeader'>
+          <section class="catSection container">
+            <div class="catHeader">
               <h2>${cat.label}</h2>
               <p>${cat.summary||''}</p>
             </div>
@@ -216,36 +234,97 @@
           </section>`;
         return;
       }
+
+      // 記事カード一覧
       const list=(cat.articles||[]);
       app.innerHTML=`
-        <section class='catSection container'>
-          <div class='catHeader'>
+        <section class="catSection container">
+          <div class="catHeader">
             <h2>${cat.label}</h2>
             <p>${cat.summary||''}</p>
           </div>
-          <div class='cardGrid'>
+          <div class="cardGrid">
             ${list.map(ArticleCard).join('')}
           </div>
         </section>`;
     }
 
-    function renderSubcategory(app,parentKey,subKey){
+    /* ===== Subcategory page (1階層/2階層対応) ===== */
+    function renderSubcategory(app, parentKey, subKey){
       const cat = SITE.categories.find(c=>c.key===parentKey);
-      const sc = cat?.subcategories?.find(s=>s.key===subKey);
-      if(!cat || !sc){app.innerHTML="<p>セクションが見つかりません</p>";return}
+      if(!cat){ app.innerHTML="<p>セクションが見つかりません</p>"; return; }
+
+      // 1階層目（直下）を探す
+      let level = 1;
+      let parentSC = null;
+      let node = cat.subcategories?.find(s=>s.key===subKey) || null;
+
+      // 見つからなければ2階層目（children）を横断検索
+      if(!node && cat.subcategories){
+        for(const sc of cat.subcategories){
+          const child = (sc.children||[]).find(ch=>ch.key===subKey);
+          if(child){
+            level = 2;
+            parentSC = sc;
+            node = child;
+            break;
+          }
+        }
+      }
+
+      if(!node){
+        app.innerHTML = "<p>セクションが見つかりません</p>";
+        return;
+      }
+
+      // パンくず
+      const crumbs = [
+        `<a href='#/'>トップ</a>`,
+        `<a href='#/category/${cat.key}'>${cat.label}</a>`
+      ];
+      if(level===2){
+        crumbs.push(`<a href='#/subcategory/${cat.key}/${parentSC.key}'>${parentSC.label}</a>`);
+      }
+      crumbs.push(node.label);
+
+      // 1階層目：子サブカテゴリがあればカードで列挙
+      if(level===1 && Array.isArray(node.children) && node.children.length){
+        app.innerHTML = `
+          <div class='breadcrumbs container'>${crumbs.join(" › ")}</div>
+          <section class='catSection container'>
+            <div class='catHeader'>
+              <h2>${node.label}</h2>
+              <p>${node.summary || cat.summary || ''}</p>
+            </div>
+            <div class="cardGrid">
+              ${node.children.map(ch=>`
+                <a class="card" href="#/subcategory/${cat.key}/${ch.key}">
+                  <h3 class="cardTitle">${ch.label}</h3>
+                  <div class="cardDesc">${ch.summary || ''}</div>
+                  <span class="cardMore">もっと見る →</span>
+                </a>
+              `).join('')}
+            </div>
+          </section>`;
+        return;
+      }
+
+      // 2階層目、または articles を持つ1階層目：PDFリスト
+      const articles = node.articles || [];
       app.innerHTML = `
-        <div class='breadcrumbs container'><a href='#/'>トップ</a> › <a href='#/category/${cat.key}'>${cat.label}</a> › ${sc.label}</div>
+        <div class='breadcrumbs container'>${crumbs.join(" › ")}</div>
         <section class='catSection container'>
           <div class='catHeader'>
-            <h2>${sc.label}</h2>
-            <p>${cat.summary||''}</p>
+            <h2>${node.label}</h2>
+            <p>${node.summary || cat.summary || ''}</p>
           </div>
           <ul class='pdfList'>
-            ${(sc.articles||[]).map(item=>`<li><a href='${item.url}' target='_blank' rel='noopener'>${item.title}</a></li>`).join('')}
+            ${articles.map(item=>`<li><a href='${item.url}' target='_blank' rel='noopener'>${item.title}</a></li>`).join('')}
           </ul>
         </section>`;
     }
 
+    /* ===== (legacy) Internal Article page ===== */
     function renderArticle(app,id){
       const cat = SITE.categories.find(c=> (c.articles||[]).some(a=>a.id===id));
       const a = cat?.articles?.find(x=>x.id===id);
@@ -255,12 +334,18 @@
         <article class='container'><h1>${a.title}</h1><div>${a.body||''}</div></article>`;
     }
 
+    /* ===== Drawer ===== */
     const drawer=$("#drawer"),menuBtn=$("#menuBtn");
     menuBtn.addEventListener("click",()=>drawer.classList.toggle("open"));
     drawer.addEventListener("click",e=>{if(e.target.tagName==="A")drawer.classList.remove("open")});
 
     window.addEventListener("hashchange",route);
-    window.addEventListener("DOMContentLoaded",()=>{route();$("#year").textContent=new Date().getFullYear()});
+    window.addEventListener("DOMContentLoaded",()=>{
+      // SITE が読み込まれているか簡易チェック
+      if(!window.SITE){ console.error("SITE が見つかりません。先に site-data.js を読み込んでください。"); }
+      route();
+      $("#year").textContent=new Date().getFullYear();
+    });
   </script>
 </body>
 </html>
