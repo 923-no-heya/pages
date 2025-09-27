@@ -35,17 +35,17 @@
     .menuIcon::before,.menuIcon::after{content:"";position:absolute;left:0;width:24px;height:2px;background:var(--ink);}
     .menuIcon::before{top:-7px}
     .menuIcon::after{top:7px}
-    @media(max-width:820px){.tabs{display:none}.menuButton{display:inline-flex;align-items:center;justify-content:center;padding:8px}}
+    @media(max-width:1000px){.tabs{display:none}.menuButton{display:inline-flex;align-items:center;justify-content:center;padding:8px}}
 
     /* Drawer */
     .drawer{position:fixed;inset:0 0 0 auto;width:80%;max-width:320px;transform:translateX(100%);background:var(--surface);box-shadow:var(--shadow);transition:.25s;display:flex;flex-direction:column;padding:20px;gap:12px;z-index:60}
     .drawer.open{transform:translateX(0)}
     .drawer a{padding:12px;border-radius:8px;background:var(--chip)}
 
-    /* Hero */
+    /* Hero (with parallax) */
     main{min-height:70vh}
-    .hero{position:relative;color:#fff;text-align:center;padding:120px 32px}
-    .hero-background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;filter:brightness(0.6)}
+    .hero{position:relative;color:#fff;text-align:center;padding:120px 32px;overflow:hidden}
+    .hero-background{position:absolute;inset:-10% 0 0 0;width:100%;height:120%;object-fit:cover;z-index:-1;filter:brightness(0.6);will-change:transform;transform:translateY(0)}
     .hero h1{font-size:clamp(32px,6vw,52px);margin:0 0 16px;font-weight:800}
     .ctaRow{margin-top:28px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
     .btn{padding:12px 20px;border-radius:12px;font-weight:700;transition:.2s}
@@ -61,7 +61,7 @@
     .viewAll{padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#f9fafb;color:var(--brand);font-weight:600}
     .cardGrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 
-    /* Unified Card (Subcategory & Latest Article style) */
+    /* Unified Card */
     .card{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:8px;transition:all .2s ease}
     .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
     .cardTitle{margin:0;font-size:20px;font-weight:700}
@@ -89,7 +89,7 @@
   <header>
     <nav class="nav container">
       <a class="brand" href="#/">
-        <!-- 統計学っぽいロゴ（散布図＋回帰線） -->
+        <!-- ロゴ（散布図＋回帰線） -->
         <svg class="logo" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
           <rect x="1" y="1" width="26" height="26" rx="8" fill="url(#g)"/>
           <g stroke="white" stroke-linecap="round" stroke-width="1.6">
@@ -109,22 +109,30 @@
         <span>9 × 2 = 3 の部屋</span>
       </a>
       <div class="spacer"></div>
-      <div class="tabs">
+
+      <!-- ✅ ここに新カテゴリも追加 -->
+      <div class="tabs" id="tabs">
         <a class="tab" href="#/">トップ</a>
         <a class="tab" href="#/category/stat">統計学</a>
         <a class="tab" href="#/category/math">数学</a>
+        <a class="tab" href="#/category/queue">待ち行列</a>
+        <a class="tab" href="#/category/semiconductor">半導体</a>
         <a class="tab" href="#/category/others">その他の解析</a>
         <a class="tab" href="#/category/melas">走れメラス</a>
         <a class="tab" href="#/category/memoir">手記</a>
       </div>
+
       <button class="menuButton" id="menuBtn" aria-label="メニュー"><span class="menuIcon"></span></button>
     </nav>
   </header>
 
+  <!-- ✅ ドロワーにも追加 -->
   <aside id="drawer" class="drawer">
     <a href="#/">トップ</a>
     <a href="#/category/stat">統計学</a>
     <a href="#/category/math">数学</a>
+    <a href="#/category/queue">待ち行列</a>
+    <a href="#/category/semiconductor">半導体</a>
     <a href="#/category/others">その他の解析</a>
     <a href="#/category/melas">走れメラス</a>
     <a href="#/category/memoir">手記</a>
@@ -144,16 +152,27 @@
       const hash = location.hash || "#/";
       const app = $("#app");
       const [,root,p1,p2] = hash.split("/");
-      if(root===""||root==="#"){renderHome(app);return}
-      if(root==="category" && p1 && !p2){renderCategory(app,p1);return}
-      if(root==="subcategory" && p1 && p2){renderSubcategory(app,p1,p2);return}
-      if(root==="article" && p1){renderArticle(app,p1);return}
+
+      // ✅ ルーティング直後に最上部へ（カテゴリー遷移で中途半端にならない）
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" in window ? "instant" : "auto" });
+
+      if(root===""||root==="#"){renderHome(app);markActiveTab("#/");return}
+      if(root==="category" && p1 && !p2){renderCategory(app,p1);markActiveTab(`#/category/${p1}`);return}
+      if(root==="subcategory" && p1 && p2){renderSubcategory(app,p1,p2);markActiveTab(`#/category/${p1}`);return}
+      if(root==="article" && p1){renderArticle(app,p1);markActiveTab("");return}
       app.innerHTML="<p style='padding:40px'>ページが見つかりません</p>";
+      markActiveTab("");
+    }
+
+    function markActiveTab(href){
+      document.querySelectorAll(".tab").forEach(t=>{
+        t.removeAttribute("aria-current");
+        if(href && t.getAttribute("href")===href){ t.setAttribute("aria-current","page"); }
+      });
     }
 
     /* ===== Cards ===== */
     function SubcatCard(parentKey, sc){
-      // サブカテゴリカード（説明3行トリム）
       return `
         <a class="card" href="#/subcategory/${parentKey}/${sc.key}">
           <h3 class="cardTitle">${sc.label}</h3>
@@ -163,7 +182,6 @@
     }
 
     function ArticleCard(a){
-      // 記事（外部PDFリンク）のカード：説明3行トリム
       const inner = `
         <h3 class="cardTitle">${a.title}</h3>
         <div class="cardDesc">${a.description || ''}</div>
@@ -178,23 +196,21 @@
     function renderHome(app){
       let html=`
         <section class="hero">
-          <img src="https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E3%82%B9%E3%82%A4%E3%82%B9.jpg" alt="著者と牛の写真" class="hero-background">
+          <img id="heroBg" src="https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E3%82%B9%E3%82%A4%E3%82%B9.jpg" alt="著者と牛の写真" class="hero-background">
           <h1>${SITE.title}</h1>
           <div class="ctaRow">
             <a class="btn primary" href="#/category/stat">著者略歴</a>
           </div>
         </section>`;
 
-        // 「すべて見る」を隠すカテゴリ
+        // 「すべて見る」を隠すカテゴリ（必要なら調整）
         const hideViewAllKeys = new Set(["stat","math","memoir","others"]);
 
         html += SITE.categories.map(c=>{
           let inner = "";
           if (c.subcategories) {
-            // サブカテゴリカードを並べる
             inner = c.subcategories.map(sc=>SubcatCard(c.key, sc)).join("");
           } else if (c.articles) {
-            // 走れメラスだけ末尾3件、他は全件
             const list = c.key === "melas" ? c.articles.slice(-3) : c.articles;
             inner = list.map(ArticleCard).join("");
           }
@@ -211,16 +227,31 @@
         }).join("");
 
       app.innerHTML=html;
+
+      // ✅ ヒーローのパララックス
+      const heroImg = document.getElementById("heroBg");
+      if(heroImg){
+        const onScroll = ()=>{
+          const y = window.scrollY || 0;
+          heroImg.style.transform = `translateY(${y * 0.15}px)`; // ほんの少し遅れて動く
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        // 画面離脱時に後始末（SPAでのイベント蓄積防止）
+        const cleanup = ()=>window.removeEventListener("scroll", onScroll);
+        // 次のレンダーで消してしまわないように保管
+        heroImg._cleanup = cleanup;
+      }
     }
 
-    /* ===== Category page =====
-       統計学・数学はサブカテゴリカード＋説明
-       走れメラス/手記/その他は記事カード */
+    /* ===== Category page ===== */
     function renderCategory(app,key){
       const cat = SITE.categories.find(c=>c.key===key);
       if(!cat){app.innerHTML="<p>カテゴリが見つかりません</p>";return}
 
-      // サブカテゴリがあればカードで一覧
+      // 既存パララックスイベントをクリア（Homeから来た場合の後始末）
+      const oldHero = document.getElementById("heroBg");
+      if(oldHero && oldHero._cleanup) oldHero._cleanup();
+
       if(cat.subcategories){
         app.innerHTML = `
           <section class="catSection container">
@@ -235,7 +266,6 @@
         return;
       }
 
-      // 記事カード一覧
       const list=(cat.articles||[]);
       app.innerHTML=`
         <section class="catSection container">
@@ -249,17 +279,19 @@
         </section>`;
     }
 
-    /* ===== Subcategory page (1階層/2階層対応) ===== */
+    /* ===== Subcategory page ===== */
     function renderSubcategory(app, parentKey, subKey){
       const cat = SITE.categories.find(c=>c.key===parentKey);
       if(!cat){ app.innerHTML="<p>セクションが見つかりません</p>"; return; }
 
-      // 1階層目（直下）を探す
+      // パララックス掃除
+      const oldHero = document.getElementById("heroBg");
+      if(oldHero && oldHero._cleanup) oldHero._cleanup();
+
       let level = 1;
       let parentSC = null;
       let node = cat.subcategories?.find(s=>s.key===subKey) || null;
 
-      // 見つからなければ2階層目（children）を横断検索
       if(!node && cat.subcategories){
         for(const sc of cat.subcategories){
           const child = (sc.children||[]).find(ch=>ch.key===subKey);
@@ -277,7 +309,6 @@
         return;
       }
 
-      // パンくず
       const crumbs = [
         `<a href='#/'>トップ</a>`,
         `<a href='#/category/${cat.key}'>${cat.label}</a>`
@@ -287,7 +318,6 @@
       }
       crumbs.push(node.label);
 
-      // 1階層目：子サブカテゴリがあればカードで列挙
       if(level===1 && Array.isArray(node.children) && node.children.length){
         app.innerHTML = `
           <div class='breadcrumbs container'>${crumbs.join(" › ")}</div>
@@ -309,7 +339,6 @@
         return;
       }
 
-      // 2階層目、または articles を持つ1階層目：PDFリスト
       const articles = node.articles || [];
       app.innerHTML = `
         <div class='breadcrumbs container'>${crumbs.join(" › ")}</div>
@@ -326,6 +355,10 @@
 
     /* ===== (legacy) Internal Article page ===== */
     function renderArticle(app,id){
+      // パララックス掃除
+      const oldHero = document.getElementById("heroBg");
+      if(oldHero && oldHero._cleanup) oldHero._cleanup();
+
       const cat = SITE.categories.find(c=> (c.articles||[]).some(a=>a.id===id));
       const a = cat?.articles?.find(x=>x.id===id);
       if(!a){app.innerHTML="<p>記事が見つかりません</p>";return}
@@ -339,9 +372,9 @@
     menuBtn.addEventListener("click",()=>drawer.classList.toggle("open"));
     drawer.addEventListener("click",e=>{if(e.target.tagName==="A")drawer.classList.remove("open")});
 
+    /* ===== Init ===== */
     window.addEventListener("hashchange",route);
     window.addEventListener("DOMContentLoaded",()=>{
-      // SITE が読み込まれているか簡易チェック
       if(!window.SITE){ console.error("SITE が見つかりません。先に site-data.js を読み込んでください。"); }
       route();
       $("#year").textContent=new Date().getFullYear();
