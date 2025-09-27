@@ -20,12 +20,17 @@
     a{text-decoration:none;color:inherit}
     .container{max-width:var(--max);margin:0 auto;padding:0 32px}
 
-    /* Header */
-    header{background:var(--surface);box-shadow:var(--shadow);position:sticky;top:0;z-index:50}
-    .nav{display:flex;align-items:center;gap:16px;padding:16px 32px}
+    /* Header（ガラス・透過） */
+    header{
+      position:sticky;top:0;z-index:60;
+      background:rgba(255,255,255,.6);
+      backdrop-filter:saturate(160%) blur(10px);
+      -webkit-backdrop-filter:saturate(160%) blur(10px);
+      border-bottom:1px solid rgba(229,231,235,.7);
+    }
+    .nav{display:flex;align-items:center;gap:16px;padding:12px 32px}
     .brand{display:flex;align-items:center;gap:10px}
     .brand svg{width:24px;height:24px;display:block}
-    /* ナビのタイトルをグラデーション文字にする */
     .brand span{
       font-weight:800;font-size:18px;
       background:linear-gradient(90deg,var(--brand),var(--brand-2));
@@ -34,9 +39,13 @@
     }
     .spacer{flex:1}
     .tabs{display:flex;gap:8px;flex-wrap:wrap}
-    .tab{padding:8px 14px;border-radius:10px;font-weight:600;color:var(--ink);transition:.2s;background:var(--chip)}
-    .tab:hover{background:var(--chip-hover)}
-    .tab[aria-current="page"]{background:var(--brand);color:#fff}
+    .tab{
+      padding:8px 14px;border-radius:999px;
+      font-weight:600;transition:.2s;
+      background:rgba(255,255,255,.7); border:1px solid var(--line); color:var(--ink)
+    }
+    .tab:hover{background:#fff}
+    .tab[aria-current="page"]{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;border-color:transparent}
     .menuButton{display:none;background:none;border:none;cursor:pointer}
     .menuIcon{width:24px;height:2px;background:var(--ink);position:relative;display:block}
     .menuIcon::before,.menuIcon::after{content:"";position:absolute;left:0;width:24px;height:2px;background:var(--ink);}
@@ -44,19 +53,27 @@
     .menuIcon::after{top:7px}
     @media(max-width:820px){.tabs{display:none}.menuButton{display:inline-flex;align-items:center;justify-content:center;padding:8px}}
 
-    /* Drawer */
-    .drawer{position:fixed;inset:0 0 0 auto;width:80%;max-width:320px;transform:translateX(100%);background:var(--surface);box-shadow:var(--shadow);transition:.25s;display:flex;flex-direction:column;padding:20px;gap:12px;z-index:60}
+    /* Drawer（明るい＋閉じる） */
+    .drawer{
+      position:fixed;inset:0 0 0 auto;width:80%;max-width:320px;transform:translateX(100%);
+      background:rgba(255,255,255,.96); box-shadow:var(--shadow); transition:.25s;
+      display:flex;flex-direction:column;padding:20px;gap:12px;z-index:70;
+      backdrop-filter:saturate(160%) blur(8px);
+    }
     .drawer.open{transform:translateX(0)}
-    .drawer a{padding:12px;border-radius:8px;background:var(--chip)}
+    .drawer a{padding:12px;border-radius:10px;background:#f8fafc;border:1px solid var(--line)}
+    .drawer a:hover{background:#fff}
     .drawerClose{align-self:flex-end;background:none;border:none;font-size:32px;line-height:1;color:var(--ink);cursor:pointer;padding:8px;margin:-8px -8px 8px auto;}
     .drawerClose:hover{color:var(--brand)}
 
     /* Hero */
     main{min-height:70vh}
-    .hero{position:relative;color:#fff;text-align:center;padding:120px 32px;overflow:hidden}
+    .hero{position:relative;color:#fff;text-align:center;padding:120px 32px 96px;overflow:hidden}
     .hero-background{position:absolute;inset:-10% 0 0 0;width:100%;height:120%;object-fit:cover;z-index:-1;filter:brightness(0.6)}
-    .hero h1{font-size:clamp(32px,6vw,52px);margin:0 0 12px;font-weight:800;color:#fff !important;text-shadow:0 2px 10px rgba(0,0,0,.25);}
-    .title-actions{margin:10px 0 6px}
+    .hero h1{
+      font-size:clamp(32px,6vw,52px);margin:0 0 12px;font-weight:800;
+      color:#fff !important;text-shadow:0 2px 10px rgba(0,0,0,.25);
+    }
     .ctaRow{margin-top:22px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
     .btn{padding:12px 18px;border-radius:12px;font-weight:700;transition:.2s;display:inline-block}
     .btn.primary{background:#fff;color:var(--brand)}
@@ -66,9 +83,12 @@
     /* Sections / Cards */
     .catSection{padding:60px 32px;position:relative}
     .catHeader{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 24px}
-    .catHeader h2{margin:0;font-size:28px;font-weight:800;background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .catHeader h2{
+      margin:0;font-size:28px;font-weight:800;
+      background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent
+    }
     .catHeader p{flex-basis:100%;margin:8px 0 0;color:var(--muted)}
-    .viewAll{padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#f9fafb;color:var(--brand);font-weight:600}
+    .viewAll{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--brand);font-weight:600}
     .cardGrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 
     /* Card */
@@ -76,13 +96,23 @@
     .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
     .cardTitle{margin:0;font-size:20px;font-weight:700}
     .cardDesc{color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-    .cardMore{margin-top:auto;color:var(--brand);font-weight:700}
 
-    /* PDF list */
+    /* 控えめリンク（本文を見る / 記事一覧） */
+    .cardMore{
+      margin-top:auto;
+      color:var(--muted);
+      font-weight:600;
+      font-size:14px;
+      letter-spacing:.02em;
+      display:inline-flex;align-items:center;gap:6px;
+      transition:color .2s ease, transform .2s ease;
+    }
+    .card:hover .cardMore{color:var(--brand)}
+    .cardMore::after{content:"›";transform:translateY(1px)}
     .pdfList{list-style:none;padding:0;margin:0;display:grid;gap:10px}
     .pdfList li a{display:block;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#f9fafb}
 
-    /* パンくずは非表示 */
+    /* パンくず非表示 */
     .breadcrumbs{display:none!important}
 
     /* Footer */
@@ -93,7 +123,7 @@
   <header>
     <nav class="nav container">
       <a class="brand" href="#/" aria-label="トップへ">
-        <!-- インラインSVGアイコン（折れ線グラフ） -->
+        <!-- SVGロゴ（グラデ線の折れ線グラフ） -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <defs>
             <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -181,14 +211,14 @@
       return `<a class="card" href="#/subcategory/${parentKey}/${sc.key}">
           <h3 class="cardTitle">${sc.label}</h3>
           <div class="cardDesc">${sc.summary||''}</div>
-          <span class="cardMore">もっと見る →</span>
+          <span class="cardMore">記事一覧</span>
         </a>`;
     }
 
     function ArticleCard(a){
       const inner=`<h3 class="cardTitle">${a.title}</h3>
         <div class="cardDesc">${a.description||''}</div>
-        <span class="cardMore">本文を見る →</span>`;
+        <span class="cardMore">本文を見る</span>`;
       return a.url?`<a class="card" href="${a.url}" rel="noopener">${inner}</a>`:`<a class="card" href="#/article/${a.id||''}">${inner}</a>`;
     }
 
@@ -225,7 +255,7 @@
 
       app.innerHTML=html;
 
-      // パララックス
+      // ヒーロー軽いパララックス
       const bg=document.getElementById('hero-bg');
       if(bg){
         const onScroll=()=>{bg.style.transform=`translateY(${(window.scrollY||0)*0.15}px)`;};
@@ -294,7 +324,7 @@
                 <a class="card" href="#/subcategory/${cat.key}/${ch.key}">
                   <h3 class="cardTitle">${ch.label}</h3>
                   <div class="cardDesc">${ch.summary||''}</div>
-                  <span class="cardMore">もっと見る →</span>
+                  <span class="cardMore">記事一覧</span>
                 </a>
               `).join('')}
             </div>
