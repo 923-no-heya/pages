@@ -103,7 +103,7 @@ window.SITE = {
               {
                 "key": "calc-basic",
                 "label": "微分/積分の基礎",
-                "summary": "6章で極限・微分・積分の要点を短距離走",
+                "summary": "極限・微分・積分の要点を短距離走",
                 "articles": [
                   { "title": "CH01　序", "url": "https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_277e86ed-7a0a-4508-be97-445c98ab3bc4.pdf", "description": "微積の学び方と到達点を示す序章" },
                   { "title": "CH02　微分とは何か", "url": "https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_4f9d052d-ba2c-439a-9abb-cb570aba9675.pdf", "description": "瞬間の変化率＝微分の意味と直観" },
@@ -116,7 +116,7 @@ window.SITE = {
               {
                 "key": "calc-main",
                 "label": "微分/積分",
-                "summary": "22章で初等関数から最適化・級数まで",
+                "summary": "初等関数から最適化・級数までをじっくり学ぶ",
                 "articles": [
                   { "title": "CH01　微積分についての序", "url": "https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_d4368e6f-8725-4115-9a49-50b4b61d3d8e.pdf", "description": "微積の位置づけと学習ロードマップ" },
                   { "title": "CH02　数の種類", "url": "https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_5b73df4e-9c12-4f37-ac31-6610f5277ec2.pdf", "description": "実数・複素数など数体系の整理" },
@@ -161,7 +161,7 @@ window.SITE = {
               {
                 "key": "linear-basic",
                 "label": "線形代数の基礎",
-                "summary": "計算と表現に慣れる7章",
+                "summary": "計算と表現に慣れる入門編",
                 "articles": [
                   { "title": "CH01　序", "url": "https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_a5a7935f-9f71-4c16-b82b-9ccada1a9910.pdf", "description": "線形代数の役割と学びの道筋を示す" },
                   { "title": "CH02　ベクトルの定義とその演算", "url": "https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_92291dd6-71ed-45c3-a53e-62cd2815ba9f.pdf", "description": "ベクトルの演算・内積・幾何的解釈" },
@@ -175,7 +175,7 @@ window.SITE = {
               {
                 "key": "linear-main",
                 "label": "線形代数",
-                "summary": "本編：固有値・最小多項式・Jordan標準形まで",
+                "summary": "固有値・最小多項式・Jordan標準形までじっくり学ぶ",
                 "articles": [
                   { "title": "CH01　序", "url": "https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_cdbc59f4-bfc8-491f-ae03-d4082617bf8c.pdf", "description": "線形代数本編の狙いと道筋を示す" },
                   { "title": "CH02　ベクトルの定義とその演算", "url": "https://storage.googleapis.com/studio-design-asset-files/projects/wQOV4jM4aD/s-1x1_18b8586a-49a8-4435-8f3c-102a244c7bcf.pdf", "description": "ベクトル空間と線形独立の基礎" },
