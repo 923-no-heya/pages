@@ -61,10 +61,16 @@
       backdrop-filter:saturate(160%) blur(8px);
     }
     .drawer.open{transform:translateX(0)}
-    .drawer a{padding:12px;border-radius:10px;background:#f8fafc;border:1px solid var(--line)}
+    .drawer a{
+      padding:12px;border-radius:10px;background:#f8fafc;border:1px solid var(--line);
+      display:flex;align-items:center;gap:10px;
+    }
     .drawer a:hover{background:#fff}
     .drawerClose{align-self:flex-end;background:none;border:none;font-size:32px;line-height:1;color:var(--ink);cursor:pointer;padding:8px;margin:-8px -8px 8px auto;}
     .drawerClose:hover{color:var(--brand)}
+    .ico{width:18px;height:18px;flex:0 0 18px;display:inline-block}
+    .ico svg{width:18px;height:18px;display:block}
+    .ico path,.ico rect,.ico circle,.ico polyline,.ico line{stroke:var(--brand);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
     /* Hero */
     main{min-height:70vh}
@@ -109,8 +115,15 @@
     }
     .card:hover .cardMore{color:var(--brand)}
     .cardMore::after{content:"›";transform:translateY(1px)}
+
+    /* PDF list（説明文つき） */
     .pdfList{list-style:none;padding:0;margin:0;display:grid;gap:10px}
-    .pdfList li a{display:block;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#f9fafb}
+    .pdfList li a{
+      display:block;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#f9fafb
+    }
+    .pdfTitle{font-weight:700;margin:0 0 4px;font-size:16px}
+    .pdfDesc{color:var(--muted);font-size:14px;line-height:1.6;
+      display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 
     /* パンくず非表示 */
     .breadcrumbs{display:none!important}
@@ -131,12 +144,12 @@
               <stop offset="100%" stop-color="#06b6d4"/>
             </linearGradient>
           </defs>
-          <path d="M3 3v18h18" fill="none" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"/>
-          <path d="M6 15l4-4 3 3 5-7" fill="none" stroke="url(#g1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="6" cy="15" r="1.5" fill="url(#g1)"/>
-          <circle cx="10" cy="11" r="1.5" fill="url(#g1)"/>
-          <circle cx="13" cy="14" r="1.5" fill="url(#g1)"/>
-          <circle cx="18" cy="7" r="1.5" fill="url(#g1)"/>
+        <path d="M3 3v18h18" fill="none" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M6 15l4-4 3 3 5-7" fill="none" stroke="url(#g1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="6" cy="15" r="1.5" fill="url(#g1)"/>
+        <circle cx="10" cy="11" r="1.5" fill="url(#g1)"/>
+        <circle cx="13" cy="14" r="1.5" fill="url(#g1)"/>
+        <circle cx="18" cy="7" r="1.5" fill="url(#g1)"/>
         </svg>
         <span>9 × 2 = 3 の部屋</span>
       </a>
@@ -193,16 +206,63 @@
         <a class="tab" href="#/category/memoir">手記</a>`;
       $("#tabs").innerHTML=tabsHTML;
 
+      // --- モバイルドロワー（各項目アイコン付き） ---
       const drawerHTML=`
         <button id="drawerClose" class="drawerClose" aria-label="閉じる">&times;</button>
-        <a href="#/">トップ</a>
-        <a href="#/category/stat">統計学</a>
-        <a href="#/category/math">数学</a>
-        <a href="#/category/queue">待ち行列</a>
-        <a href="#/category/semiconductor">半導体</a>
-        <a href="#/category/others">その他の解析</a>
-        <a href="#/category/melas">走れメラス</a>
-        <a href="#/category/memoir">手記</a>`;
+
+        <a href="#/">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 10L12 3l9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>
+          </span>トップ
+        </a>
+
+        <a href="#/category/stat">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="4" y="10" width="3" height="8"/><rect x="10" y="6" width="3" height="12"/><rect x="16" y="3" width="3" height="15"/></svg>
+          </span>統計学
+        </a>
+
+        <a href="#/category/math">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M8 6h8"/><path d="M8 18h8"/></svg>
+          </span>数学
+        </a>
+
+        <a href="#/category/queue">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="4" y1="18" x2="20" y2="18"/><circle cx="6" cy="12" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="14" cy="12" r="1.5"/></svg>
+          </span>待ち行列
+        </a>
+
+        <a href="#/category/semiconductor">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <rect x="6" y="6" width="12" height="12" rx="2"/>
+              <line x1="9" y1="2" x2="9" y2="6"/><line x1="15" y1="2" x2="15" y2="6"/>
+              <line x1="2" y1="9" x2="6" y2="9"/><line x1="2" y1="15" x2="6" y2="15"/>
+              <line x1="18" y1="9" x2="22" y2="9"/><line x1="18" y1="15" x2="22" y2="15"/>
+              <line x1="9" y1="18" x2="9" y2="22"/><line x1="15" y1="18" x2="15" y2="22"/>
+            </svg>
+          </span>半導体
+        </a>
+
+        <a href="#/category/others">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6 2l4 8v8a2 2 0 0 1-2 2h-2"/><path d="M18 2l-4 8v8a2 2 0 0 0 2 2h2"/></svg>
+          </span>その他の解析
+        </a>
+
+        <a href="#/category/melas">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 20l8-8"/><path d="M14 6l4 4"/><path d="M12 8l4 4"/></svg>
+          </span>走れメラス
+        </a>
+
+        <a href="#/category/memoir">
+          <span class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 0 1 4 4v12"/><path d="M4 4v16a3 3 0 0 1 3-3h13"/></svg>
+          </span>手記
+        </a>`;
       $("#drawer").innerHTML=drawerHTML;
     }
 
@@ -339,7 +399,16 @@
             <p>${node.summary||cat.summary||''}</p>
           </div>
           <ul class='pdfList'>
-            ${articles.map(item=>`<li><a href='${item.url}' rel='noopener'>${item.title}</a></li>`).join('')}
+            ${
+              articles.map(item=>`
+                <li>
+                  <a href='${item.url}' rel='noopener'>
+                    <div class="pdfTitle">${item.title}</div>
+                    <div class="pdfDesc">${item.description || ''}</div>
+                  </a>
+                </li>
+              `).join('')
+            }
           </ul>
         </section>`;
     }
