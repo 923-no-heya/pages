@@ -1,4 +1,4 @@
-{
+window.SITE = {
     "title": "9 × 2 = 3 の部屋",
     "categories": [
       {
