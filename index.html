@@ -8,16 +8,10 @@
   <meta name="theme-color" content="#ffffff" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome（アイコン用） -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfQWoXN8CimeniD8WgN3RF6Z7R9IYqCwE2cUGsxy2G02jTSh3j21iN8g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"
-  />
+  <!-- Font Awesome（アイコン用）: jsDelivr に変更 / integrity は外す -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    /* ==== Light mode fixed ==== */
     :root{
       --bg:#fafafa; --surface:#fff; --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
       --brand:#3b82f6; --brand-2:#06b6d4; --radius:20px; --shadow:0 8px 20px rgba(0,0,0,.06); --max:1200px;
@@ -27,8 +21,6 @@
     body{margin:0;font:16px/1.65 Inter,"Noto Sans JP",sans-serif;color:var(--ink);background:var(--bg)}
     a{text-decoration:none;color:inherit}
     .container{max-width:var(--max);margin:0 auto;padding:0 32px}
-
-    /* Header */
     header{background:var(--surface);box-shadow:var(--shadow);position:sticky;top:0;z-index:50}
     .nav{display:flex;align-items:center;gap:16px;padding:16px 32px}
     .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--brand)}
@@ -44,44 +36,32 @@
     .menuIcon::before{top:-7px}
     .menuIcon::after{top:7px}
     @media(max-width:820px){.tabs{display:none}.menuButton{display:inline-flex;align-items:center;justify-content:center;padding:8px}}
-
-    /* Drawer */
     .drawer{position:fixed;inset:0 0 0 auto;width:80%;max-width:320px;transform:translateX(100%);background:var(--surface);box-shadow:var(--shadow);transition:.25s;display:flex;flex-direction:column;padding:20px;gap:12px;z-index:60}
     .drawer.open{transform:translateX(0)}
     .drawer a{padding:12px;border-radius:8px;background:var(--chip)}
-
-    /* Hero */
     main{min-height:70vh}
     .hero{position:relative;color:#fff;text-align:center;padding:120px 32px;overflow:hidden}
     .hero-background{position:absolute;inset:-10% 0 0 0;width:100%;height:120%;object-fit:cover;z-index:-1;filter:brightness(0.6)}
     .hero h1{font-size:clamp(32px,6vw,52px);margin:0 0 12px;font-weight:800}
-    .title-actions{margin: 10px 0 6px}
+    .title-actions{margin:10px 0 6px}
     .ctaRow{margin-top:22px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
     .btn{padding:12px 18px;border-radius:12px;font-weight:700;transition:.2s;display:inline-block}
     .btn.primary{background:#fff;color:var(--brand)}
     .btn.secondary{background:rgba(255,255,255,.2);color:#fff;border:1px solid #fff}
     .btn:hover{opacity:.9}
-
-    /* Sections / Cards */
     .catSection{padding:60px 32px;position:relative}
     .catHeader{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 24px}
     .catHeader h2{margin:0;font-size:28px;font-weight:800;background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
     .catHeader p{flex-basis:100%;margin:8px 0 0;color:var(--muted)}
     .viewAll{padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:#f9fafb;color:var(--brand);font-weight:600}
     .cardGrid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-
-    /* Unified Card (Subcategory & Latest Article style) */
     .card{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:8px;transition:all .2s ease}
     .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
     .cardTitle{margin:0;font-size:20px;font-weight:700}
     .cardDesc{color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
     .cardMore{margin-top:auto;color:var(--brand);font-weight:700}
-
-    /* PDF list */
     .pdfList{list-style:none;padding:0;margin:0;display:grid;gap:10px}
     .pdfList li a{display:block;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#f9fafb}
-
-    /* Generic list & article */
     .list{display:grid;gap:12px;padding:24px}
     .row{padding:16px;border-radius:12px;background:#f3f4f6;transition:.2s}
     .row:hover{background:#e5e7eb}
@@ -89,8 +69,6 @@
     .rowMeta{font-size:12px;color:var(--muted)}
     article{background:var(--surface);box-shadow:var(--shadow);padding:36px;border-radius:var(--radius);margin:24px}
     .breadcrumbs{font-size:12px;color:var(--muted);margin-bottom:12px}
-
-    /* Footer */
     footer{padding:32px;text-align:center;color:var(--muted);background:#f3f4f6;margin-top:60px}
   </style>
 </head>
@@ -113,15 +91,12 @@
 
   <footer>© <span id="year"></span> 9 × 2 = 3 の部屋</footer>
 
-  <!-- サイトデータ -->
   <script src="site-data.js"></script>
 
   <script>
     const $ = s => document.querySelector(s);
 
-    /* ==== Routing ==== */
     function route(){
-      // ルーティング時は必ず先頭へ
       window.scrollTo({top:0, left:0, behavior:'instant' in window ? 'instant' : 'auto'});
       const hash = location.hash || "#/";
       const app = $("#app");
@@ -140,7 +115,6 @@
       });
     }
 
-    /* ==== Common UI ==== */
     function buildMenus(){
       const tabsHTML = `
         <a class="tab" href="#/">トップ</a>
@@ -165,7 +139,6 @@
       $("#drawer").innerHTML = drawerHTML;
     }
 
-    /* ===== Cards ===== */
     function SubcatCard(parentKey, sc){
       return `
         <a class="card" href="#/subcategory/${parentKey}/${sc.key}">
@@ -186,7 +159,6 @@
       return `<a class="card" href="#/article/${a.id || ''}">${inner}</a>`;
     }
 
-    /* ===== Home ===== */
     function renderHome(app){
       let html=`
         <section class="hero">
@@ -197,7 +169,6 @@
           </div>
         </section>`;
 
-      // 「すべて見る」を隠すカテゴリ
       const hideViewAllKeys = new Set(["stat","math","memoir","others","queue","semiconductor"]);
 
       html += SITE.categories.map(c=>{
@@ -222,7 +193,6 @@
 
       app.innerHTML=html;
 
-      // --- （任意）軽いパララックス ---
       const bg = document.getElementById('hero-bg');
       if(bg){
         const onScroll = () => {
@@ -230,16 +200,12 @@
           bg.style.transform = `translateY(${y * 0.15}px)`;
         };
         window.addEventListener('scroll', onScroll, { passive: true });
-        // ルート切替時に破棄するために保存
         renderHome._cleanup = () => window.removeEventListener('scroll', onScroll);
       }
     }
 
-    /* ===== Category page ===== */
     function renderCategory(app,key){
-      // cleanup hero scroll handler if exists
       if(renderHome._cleanup){ try{renderHome._cleanup();}catch(e){} }
-
       const cat = SITE.categories.find(c=>c.key===key);
       if(!cat){app.innerHTML="<p>カテゴリが見つかりません</p>";return}
 
@@ -270,7 +236,6 @@
         </section>`;
     }
 
-    /* ===== Subcategory page ===== */
     function renderSubcategory(app, parentKey, subKey){
       if(renderHome._cleanup){ try{renderHome._cleanup();}catch(e){} }
 
@@ -342,7 +307,6 @@
         </section>`;
     }
 
-    /* ===== (legacy) Internal Article page ===== */
     function renderArticle(app,id){
       const cat = SITE.categories.find(c=> (c.articles||[]).some(a=>a.id===id));
       const a = cat?.articles?.find(x=>x.id===id);
@@ -352,7 +316,6 @@
         <article class='container'><h1>${a.title}</h1><div>${a.body||''}</div></article>`;
     }
 
-    /* ===== Drawer ===== */
     const drawer=$("#drawer"),menuBtn=$("#menuBtn");
     menuBtn.addEventListener("click",()=>drawer.classList.toggle("open"));
     drawer.addEventListener("click",e=>{if(e.target.tagName==="A")drawer.classList.remove("open")});
