@@ -236,36 +236,59 @@ window.SITE = {
             ]
           }
         ]
-      },
+      },     
       {
         "key": "queue",
         "label": "待ち行列",
-        "summary": "基礎指標から各モデル、Markov過程、ネットワークまで体系的に学ぶ",
-        "articles": [
-          { "title": "Ch00　序", "url": "/articles/queue/Ch00_序.pdf" },
-          { "title": "Ch01　待ち行列の概念とケンドールの記号", "url": "/articles/queue/Ch01_待ち行列の概念とケンドールの記号.pdf" },
-          { "title": "Ch02　確率分布と確率密度分布", "url": "/articles/queue/Ch02_確率分布と確率密度分布.pdf" },
-          { "title": "Ch02.1　参考文献", "url": "/articles/queue/Ch021_参考文献.pdf" },
-          { "title": "Ch03　ポアソン過程", "url": "/articles/queue/Ch03_ポアソン過程.pdf" },
-          { "title": "Ch04　リトルの定理", "url": "/articles/queue/Ch04_リトルの定理.pdf" },
-          { "title": "Ch05　流入と流出", "url": "/articles/queue/Ch05_流入と流出.pdf" },
-          { "title": "Ch06　M/M/s/∞", "url": "/articles/queue/Ch06_MMs∞.pdf" },
-          { "title": "Ch07　M/M/s/N", "url": "/articles/queue/Ch07_MMsN.pdf" },
-          { "title": "Ch08　M/M/s/s（レンタル備品）", "url": "/articles/queue/Ch08_MMssレンタル備品.pdf" },
-          { "title": "Ch09　M/M/∞", "url": "/articles/queue/Ch09_MM∞.pdf" },
-          { "title": "Ch10　M/G/1", "url": "/articles/queue/Ch10_MG1.pdf" },
-          { "title": "Ch11　M(m)/M/s（機械修理工）", "url": "/articles/queue/Ch11_M(m)Ms機械修理工.pdf" },
-          { "title": "Ch12　M[b]/M/1（集団待ち行列）", "url": "/articles/queue/Ch12_M[b]M1集団待ち行列.pdf" },
-          { "title": "Ch13　トヨタ看板方式", "url": "/articles/queue/Ch13_トヨタ看板方式.pdf" },
-          { "title": "Ch14　Markovプロセスと待ち行列理論", "url": "/articles/queue/CH14_Markovプロセスと待ち行列理論.pdf" },
-          { "title": "Ch15　Markov Process 一般論", "url": "/articles/queue/Ch15_MarkovProcess一般論.pdf" },
-          { "title": "Ch16　M/M/s/N 過渡待ち行列理論", "url": "/articles/queue/Ch16_MMsN過渡待ち行列理論.pdf" },
-          { "title": "Ch17　モンテカルロ・シミュレーション", "url": "/articles/queue/Ch17_MonteCarloSimulation.pdf" },
-          { "title": "Ch18　待ち行列ネットワーク", "url": "/articles/queue/Ch18__待ち行列ネットワーク.pdf" },
-          { "title": "Ch19　乱数", "url": "/articles/queue/Ch19_乱数.pdf" },
-          { "title": "Ch20　待ち行列関連問題", "url": "/articles/queue/Ch20_待ち行列関連問題.pdf" }
+        "summary": "待ち時間・混雑を数理で捉える基礎と応用",
+        "subcategories": [
+          {
+            "key": "queue-basic-intro",
+            "label": "待ち行列の基礎の基礎",
+            "summary": "待ち行列の考え方を直観で掴む最初の一歩",
+            "articles": [
+              { "title": "待ち行列の基礎の基礎", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E5%BE%85%E3%81%A1%E8%A1%8C%E5%88%97/CH01_%E5%BE%85%E3%81%A1%E8%A1%8C%E5%88%97%E3%81%AE%E5%9F%BA%E7%A4%8E%E3%81%AE%E5%9F%BA%E7%A4%8E.pdf", "description": "到着・サービス・待ちの基本概念を整理" }
+            ]
+          },
+          {
+            "key": "queue-basic",
+            "label": "待ち行列の基礎",
+            "summary": "基本モデルと指標を小さく回して理解する",
+            "articles": [
+              { "title": "CH01　待ち行列の基礎の基礎", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E5%BE%85%E3%81%A1%E8%A1%8C%E5%88%97/CH01_%E5%BE%85%E3%81%A1%E8%A1%8C%E5%88%97%E3%81%AE%E5%9F%BA%E7%A4%8E%E3%81%AE%E5%9F%BA%E7%A4%8E.pdf", "description": "M/M/1を入口に平均待ち時間などを学ぶ" }
+            ]
+          },
+          {
+            "key": "queue-main",
+            "label": "待ち行列",
+            "summary": "基礎指標から各モデル、Markov過程、ネットワークまで体系的に学ぶ",
+            "articles": [
+              { "title": "Ch00　序", "url": "/articles/queue/Ch00_序.pdf" },
+              { "title": "Ch01　待ち行列の概念とケンドールの記号", "url": "/articles/queue/Ch01_待ち行列の概念とケンドールの記号.pdf" },
+              { "title": "Ch02　確率分布と確率密度分布", "url": "/articles/queue/Ch02_確率分布と確率密度分布.pdf" },
+              { "title": "Ch02.1　参考文献", "url": "/articles/queue/Ch021_参考文献.pdf" },
+              { "title": "Ch03　ポアソン過程", "url": "/articles/queue/Ch03_ポアソン過程.pdf" },
+              { "title": "Ch04　リトルの定理", "url": "/articles/queue/Ch04_リトルの定理.pdf" },
+              { "title": "Ch05　流入と流出", "url": "/articles/queue/Ch05_流入と流出.pdf" },
+              { "title": "Ch06　M/M/s/∞", "url": "/articles/queue/Ch06_MMs∞.pdf" },
+              { "title": "Ch07　M/M/s/N", "url": "/articles/queue/Ch07_MMsN.pdf" },
+              { "title": "Ch08　M/M/s/s（レンタル備品）", "url": "/articles/queue/Ch08_MMssレンタル備品.pdf" },
+              { "title": "Ch09　M/M/∞", "url": "/articles/queue/Ch09_MM∞.pdf" },
+              { "title": "Ch10　M/G/1", "url": "/articles/queue/Ch10_MG1.pdf" },
+              { "title": "Ch11　M(m)/M/s（機械修理工）", "url": "/articles/queue/Ch11_M(m)Ms機械修理工.pdf" },
+              { "title": "Ch12　M[b]/M/1（集団待ち行列）", "url": "/articles/queue/Ch12_M[b]M1集団待ち行列.pdf" },
+              { "title": "Ch13　トヨタ看板方式", "url": "/articles/queue/Ch13_トヨタ看板方式.pdf" },
+              { "title": "Ch14　Markovプロセスと待ち行列理論", "url": "/articles/queue/CH14_Markovプロセスと待ち行列理論.pdf" },
+              { "title": "Ch15　Markov Process 一般論", "url": "/articles/queue/Ch15_MarkovProcess一般論.pdf" },
+              { "title": "Ch16　M/M/s/N 過渡待ち行列理論", "url": "/articles/queue/Ch16_MMsN過渡待ち行列理論.pdf" },
+              { "title": "Ch17　モンテカルロ・シミュレーション", "url": "/articles/queue/Ch17_MonteCarloSimulation.pdf" },
+              { "title": "Ch18　待ち行列ネットワーク", "url": "/articles/queue/Ch18__待ち行列ネットワーク.pdf" },
+              { "title": "Ch19　乱数", "url": "/articles/queue/Ch19_乱数.pdf" },
+              { "title": "Ch20　待ち行列関連問題", "url": "/articles/queue/Ch20_待ち行列関連問題.pdf" }
+            ]
+          }
         ]
-      },      
+      },
       {
         "key": "semiconductor",
         "label": "半導体",
