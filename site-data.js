@@ -85,19 +85,19 @@ window.SITE = {
             "label": "多変量解析",
             "summary": "重回帰・ANOVA・判別・クラスタ・主成分・因子分析まで",
             "articles": [
-              { "title": "Ch01　序", "url": "/articles/stat/multivariate/Ch01_序.pdf" },
-              { "title": "Ch02　自由度", "url": "/articles/stat/multivariate/Ch02_自由度.pdf" },
-              { "title": "Ch03　多重正規分布", "url": "/articles/stat/multivariate/Ch03_多重正規分布.pdf" },
-              { "title": "Ch04　重回帰分析", "url": "/articles/stat/multivariate/Ch04_重回帰分析.pdf" },
-              { "title": "Ch05　分散分析", "url": "/articles/stat/multivariate/Ch05_分散分析.pdf" },
-              { "title": "Ch06　実験計画法", "url": "/articles/stat/multivariate/Ch06_実験計画法.pdf" },
-              { "title": "Ch07　適合度検定", "url": "/articles/stat/multivariate/Ch07_適合度検定.pdf" },
-              { "title": "Ch08　判別分析", "url": "/articles/stat/multivariate/Ch08_判別分析.pdf" },
-              { "title": "Ch09　階層的クラスター分析", "url": "/articles/stat/multivariate/Ch09_階層的クラスター分析.pdf" },
-              { "title": "Ch10　非階層的クラスター分析", "url": "/articles/stat/multivariate/Ch10_非階層的クラスター分析.pdf" },
-              { "title": "Ch11　主成分分析", "url": "/articles/stat/multivariate/Ch11_主成分分析.pdf" },
-              { "title": "Ch12　因子分析", "url": "/articles/stat/multivariate/Ch12_因子分析.pdf" },
-              { "title": "参考文献", "url": "/articles/stat/multivariate/参考文献.pdf" }
+              { "title": "Ch01　序", "url": "/pages/articles/stat/multivariate/Ch01_序.pdf" },
+              { "title": "Ch02　自由度", "url": "/pages/articles/stat/multivariate/Ch02_自由度.pdf" },
+              { "title": "Ch03　多重正規分布", "url": "/pages/articles/stat/multivariate/Ch03_多重正規分布.pdf" },
+              { "title": "Ch04　重回帰分析", "url": "/pages/articles/stat/multivariate/Ch04_重回帰分析.pdf" },
+              { "title": "Ch05　分散分析", "url": "/pages/articles/stat/multivariate/Ch05_分散分析.pdf" },
+              { "title": "Ch06　実験計画法", "url": "/pages/articles/stat/multivariate/Ch06_実験計画法.pdf" },
+              { "title": "Ch07　適合度検定", "url": "/pages/articles/stat/multivariate/Ch07_適合度検定.pdf" },
+              { "title": "Ch08　判別分析", "url": "/pages/articles/stat/multivariate/Ch08_判別分析.pdf" },
+              { "title": "Ch09　階層的クラスター分析", "url": "/pages/articles/stat/multivariate/Ch09_階層的クラスター分析.pdf" },
+              { "title": "Ch10　非階層的クラスター分析", "url": "/pages/articles/stat/multivariate/Ch10_非階層的クラスター分析.pdf" },
+              { "title": "Ch11　主成分分析", "url": "/pages/articles/stat/multivariate/Ch11_主成分分析.pdf" },
+              { "title": "Ch12　因子分析", "url": "/pages/articles/stat/multivariate/Ch12_因子分析.pdf" },
+              { "title": "参考文献", "url": "/pages/articles/stat/multivariate/参考文献.pdf" }
             ]
           }          
         ]
@@ -263,28 +263,28 @@ window.SITE = {
             "label": "待ち行列",
             "summary": "基礎指標から各モデル、Markov過程、ネットワークまで体系的に学ぶ",
             "articles": [
-              { "title": "Ch00　序", "url": "/articles/queue/Ch00_序.pdf" },
-              { "title": "Ch01　待ち行列の概念とケンドールの記号", "url": "/articles/queue/Ch01_待ち行列の概念とケンドールの記号.pdf" },
-              { "title": "Ch02　確率分布と確率密度分布", "url": "/articles/queue/Ch02_確率分布と確率密度分布.pdf" },
-              { "title": "Ch02.1　参考文献", "url": "/articles/queue/Ch021_参考文献.pdf" },
-              { "title": "Ch03　ポアソン過程", "url": "/articles/queue/Ch03_ポアソン過程.pdf" },
-              { "title": "Ch04　リトルの定理", "url": "/articles/queue/Ch04_リトルの定理.pdf" },
-              { "title": "Ch05　流入と流出", "url": "/articles/queue/Ch05_流入と流出.pdf" },
-              { "title": "Ch06　M/M/s/∞", "url": "/articles/queue/Ch06_MMs∞.pdf" },
-              { "title": "Ch07　M/M/s/N", "url": "/articles/queue/Ch07_MMsN.pdf" },
-              { "title": "Ch08　M/M/s/s（レンタル備品）", "url": "/articles/queue/Ch08_MMssレンタル備品.pdf" },
-              { "title": "Ch09　M/M/∞", "url": "/articles/queue/Ch09_MM∞.pdf" },
-              { "title": "Ch10　M/G/1", "url": "/articles/queue/Ch10_MG1.pdf" },
-              { "title": "Ch11　M(m)/M/s（機械修理工）", "url": "/articles/queue/Ch11_M(m)Ms機械修理工.pdf" },
-              { "title": "Ch12　M[b]/M/1（集団待ち行列）", "url": "/articles/queue/Ch12_M[b]M1集団待ち行列.pdf" },
-              { "title": "Ch13　トヨタ看板方式", "url": "/articles/queue/Ch13_トヨタ看板方式.pdf" },
-              { "title": "Ch14　Markovプロセスと待ち行列理論", "url": "/articles/queue/CH14_Markovプロセスと待ち行列理論.pdf" },
-              { "title": "Ch15　Markov Process 一般論", "url": "/articles/queue/Ch15_MarkovProcess一般論.pdf" },
-              { "title": "Ch16　M/M/s/N 過渡待ち行列理論", "url": "/articles/queue/Ch16_MMsN過渡待ち行列理論.pdf" },
-              { "title": "Ch17　モンテカルロ・シミュレーション", "url": "/articles/queue/Ch17_MonteCarloSimulation.pdf" },
-              { "title": "Ch18　待ち行列ネットワーク", "url": "/articles/queue/Ch18__待ち行列ネットワーク.pdf" },
-              { "title": "Ch19　乱数", "url": "/articles/queue/Ch19_乱数.pdf" },
-              { "title": "Ch20　待ち行列関連問題", "url": "/articles/queue/Ch20_待ち行列関連問題.pdf" }
+              { "title": "Ch00　序", "url": "/pages/articles/queue/Ch00_序.pdf" },
+              { "title": "Ch01　待ち行列の概念とケンドールの記号", "url": "/pages/articles/queue/Ch01_待ち行列の概念とケンドールの記号.pdf" },
+              { "title": "Ch02　確率分布と確率密度分布", "url": "/pages/articles/queue/Ch02_確率分布と確率密度分布.pdf" },
+              { "title": "Ch02.1　参考文献", "url": "/pages/articles/queue/Ch021_参考文献.pdf" },
+              { "title": "Ch03　ポアソン過程", "url": "/pages/articles/queue/Ch03_ポアソン過程.pdf" },
+              { "title": "Ch04　リトルの定理", "url": "/pages/articles/queue/Ch04_リトルの定理.pdf" },
+              { "title": "Ch05　流入と流出", "url": "/pages/articles/queue/Ch05_流入と流出.pdf" },
+              { "title": "Ch06　M/M/s/∞", "url": "/pages/articles/queue/Ch06_MMs∞.pdf" },
+              { "title": "Ch07　M/M/s/N", "url": "/pages/articles/queue/Ch07_MMsN.pdf" },
+              { "title": "Ch08　M/M/s/s（レンタル備品）", "url": "/pages/articles/queue/Ch08_MMssレンタル備品.pdf" },
+              { "title": "Ch09　M/M/∞", "url": "/pages/articles/queue/Ch09_MM∞.pdf" },
+              { "title": "Ch10　M/G/1", "url": "/pages/articles/queue/Ch10_MG1.pdf" },
+              { "title": "Ch11　M(m)/M/s（機械修理工）", "url": "/pages/articles/queue/Ch11_M(m)Ms機械修理工.pdf" },
+              { "title": "Ch12　M[b]/M/1（集団待ち行列）", "url": "/pages/articles/queue/Ch12_M[b]M1集団待ち行列.pdf" },
+              { "title": "Ch13　トヨタ看板方式", "url": "/pages/articles/queue/Ch13_トヨタ看板方式.pdf" },
+              { "title": "Ch14　Markovプロセスと待ち行列理論", "url": "/pages/articles/queue/CH14_Markovプロセスと待ち行列理論.pdf" },
+              { "title": "Ch15　Markov Process 一般論", "url": "/pages/articles/queue/Ch15_MarkovProcess一般論.pdf" },
+              { "title": "Ch16　M/M/s/N 過渡待ち行列理論", "url": "/pages/articles/queue/Ch16_MMsN過渡待ち行列理論.pdf" },
+              { "title": "Ch17　モンテカルロ・シミュレーション", "url": "/pages/articles/queue/Ch17_MonteCarloSimulation.pdf" },
+              { "title": "Ch18　待ち行列ネットワーク", "url": "/pages/articles/queue/Ch18__待ち行列ネットワーク.pdf" },
+              { "title": "Ch19　乱数", "url": "/pages/articles/queue/Ch19_乱数.pdf" },
+              { "title": "Ch20　待ち行列関連問題", "url": "/pages/articles/queue/Ch20_待ち行列関連問題.pdf" }
             ]
           }
         ]
@@ -315,7 +315,7 @@ window.SITE = {
           { "title": "地震", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E8%A7%A3%E6%9E%90/%E5%9C%B0%E9%9C%87.pdf", "description": "地震の発生メカニズムと揺れの数理的理解" },
           {
             "title": "人口問題",
-            "url": "/articles/others/人口問題.pdf",
+            "url": "/pages/articles/others/人口問題.pdf",
             "description": "人口動態・少子高齢化と社会への影響を概観"
           }          
         ]
@@ -350,11 +350,11 @@ window.SITE = {
           { "title": "走れメラス 23", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E8%B5%B0%E3%82%8C%E3%83%A1%E3%83%A9%E3%82%B9/Merasu23_public.pdf", "description": "語彙と世界の広がり" },
           { "title": "走れメラス 24", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E8%B5%B0%E3%82%8C%E3%83%A1%E3%83%A9%E3%82%B9/Merasu24_public.pdf", "description": "未完である勇気" },
           { "title": "走れメラス 25", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E8%B5%B0%E3%82%8C%E3%83%A1%E3%83%A9%E3%82%B9/Merasu25_public.pdf", "description": "別れと継続の術" },
-          { "title": "走れメラス 26", "url": "/articles/melas/Merasu26_public.pdf", "description": "" },
-          { "title": "走れメラス 27", "url": "/articles/melas/Merasu27_public.pdf", "description": "" },
-          { "title": "走れメラス 28", "url": "/articles/melas/Merasu28_public.pdf", "description": "" },
-          { "title": "走れメラス 29", "url": "/articles/melas/Merasu29_public.pdf", "description": "" },
-          { "title": "走れメラス 30", "url": "/articles/melas/Merasu30_public.pdf", "description": "" }
+          { "title": "走れメラス 26", "url": "/pages/articles/melas/Merasu26_public.pdf", "description": "" },
+          { "title": "走れメラス 27", "url": "/pages/articles/melas/Merasu27_public.pdf", "description": "" },
+          { "title": "走れメラス 28", "url": "/pages/articles/melas/Merasu28_public.pdf", "description": "" },
+          { "title": "走れメラス 29", "url": "/pages/articles/melas/Merasu29_public.pdf", "description": "" },
+          { "title": "走れメラス 30", "url": "/pages/articles/melas/Merasu30_public.pdf", "description": "" }
         ]
       },
       {
