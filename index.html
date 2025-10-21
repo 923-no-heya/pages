@@ -130,6 +130,12 @@
 
     /* Footer */
     footer{padding:32px;text-align:center;color:var(--muted);background:#f3f4f6;margin-top:60px}
+
+    .updates{padding:60px 32px;background:#f9fafb;border-top:1px solid var(--line);}
+    .updateList{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+    .updateList li{padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+    .updateList a{color:var(--brand);font-weight:600}
+    .updateList a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
@@ -164,7 +170,17 @@
   </aside>
 
   <main id="app"></main>
-
+  <section class="updates container" id="updates">
+    <div class="catHeader">
+      <h2>更新履歴</h2>
+      <p>最近追加・更新された資料の一覧です。</p>
+    </div>
+    <ul class="updateList">
+      <li><strong>2025-10-21：</strong> <a href="#/category/melas">走れメラス 26~30</a> を追加</li>
+      <li><strong>2025-10-21：</strong> <a href="#/category/queue">待ち行列</a> に関する資料を公開</li>
+      <li><strong>2025-10-21：</strong> <a href="#/category/stat">多変量解析</a> に関する資料を公開</li>
+    </ul>
+  </section>
   <footer>© <span id="year"></span> 9×2=3の部屋<br>Kunihiro Suzuki</footer>
 
   <!-- サイトデータ -->
