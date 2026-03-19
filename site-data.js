@@ -283,7 +283,12 @@ window.SITE = {
             "label": "待ち行列の基礎",
             "summary": "基本モデルと指標を小さく回して理解する",
             "articles": [
-              { "title": "CH01　待ち行列の基礎の基礎", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E5%BE%85%E3%81%A1%E8%A1%8C%E5%88%97/CH01_%E5%BE%85%E3%81%A1%E8%A1%8C%E5%88%97%E3%81%AE%E5%9F%BA%E7%A4%8E%E3%81%AE%E5%9F%BA%E7%A4%8E.pdf", "description": "M/M/1を入口に平均待ち時間などを学ぶ" }
+              { "title": "Ch00　序", "url": "/pages/articles/queue/fundamentals/Ch00_序.pdf" },
+              { "title": "Ch01　待ち行列の概念とケンドールの記号", "url": "/pages/articles/queue/fundamentals/CH01_待ち行列の概念とケンドールの記号.pdf" },
+              { "title": "Ch02　確率分布と確率密度分布", "url": "/pages/articles/queue/fundamentals/CH02_確率分布と確率密度分布.pdf" },
+              { "title": "Ch03　流入と流出", "url": "/pages/articles/queue/fundamentals/Ch03_流入と流出.pdf" },
+              { "title": "Ch04　M/M/s/∞", "url": "/pages/articles/queue/fundamentals/Ch04_MMs∞.pdf" },
+              { "title": "Ch05　参考文献", "url": "/pages/articles/queue/fundamentals/Ch05_参考文献.pdf" }
             ]
           },
           {
