@@ -99,7 +99,35 @@ window.SITE = {
               { "title": "Ch12　因子分析", "url": "/pages/articles/stat/multivariate/Ch12_因子分析.pdf" },
               { "title": "参考文献", "url": "/pages/articles/stat/multivariate/参考文献.pdf" }
             ]
-          }          
+          },
+          {
+            "key": "determinism",
+            "label": "決定論的解析",
+            "summary": "CS分析・決定木・AHP・線形計画法など決定論的手法を体系的に学ぶ",
+            "articles": [
+              { "title": "Ch00　序", "url": "/pages/articles/stat/determinism/Ch00_序.pdf" },
+              { "title": "Ch01　CS分析", "url": "/pages/articles/stat/determinism/Ch01_CS分析.pdf" },
+              { "title": "Ch02　独立係数解析", "url": "/pages/articles/stat/determinism/Ch02_独立係数解析.pdf" },
+              { "title": "Ch03　決定木分析", "url": "/pages/articles/stat/determinism/Ch03_決定木分析.pdf" },
+              { "title": "Ch04　AHP", "url": "/pages/articles/stat/determinism/Ch04__AHP.pdf" },
+              { "title": "Ch05　線形計画法", "url": "/pages/articles/stat/determinism/Ch05_線形計画法.pdf" },
+              { "title": "Ch06　PSLA", "url": "/pages/articles/stat/determinism/Ch06_PSLA.pdf" },
+              { "title": "参考文献", "url": "/pages/articles/stat/determinism/参考文献.pdf" }
+            ]
+          },
+          {
+            "key": "categorical",
+            "label": "数量化理論",
+            "summary": "数量化I〜IV類によるカテゴリカルデータ解析を学ぶ",
+            "articles": [
+              { "title": "序", "url": "/pages/articles/stat/categorical/序.pdf" },
+              { "title": "Ch01　数量化I類", "url": "/pages/articles/stat/categorical/Ch01_数量化I類.pdf" },
+              { "title": "Ch02　数量化II類", "url": "/pages/articles/stat/categorical/Ch02_数量化Ⅱ類.pdf" },
+              { "title": "Ch03　数量化III類・クロス集計", "url": "/pages/articles/stat/categorical/Ch03_数量化Ⅲ類_クロス集計.pdf" },
+              { "title": "Ch04　数量化IV類", "url": "/pages/articles/stat/categorical/Ch04_数量化IV類.pdf" },
+              { "title": "参考文献", "url": "/pages/articles/stat/categorical/参考文献.pdf" }
+            ]
+          }
         ]
       },
       {
@@ -293,8 +321,29 @@ window.SITE = {
         "key": "semiconductor",
         "label": "半導体",
         "summary": "半導体の仕組みと材料物性をコンパクトに概観",
-        "articles": [
-          { "title": "半導体とは何か", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E5%8D%8A%E5%B0%8E%E4%BD%93/%E5%8D%8A%E5%B0%8E%E4%BD%93%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B.pdf", "description": "導体と絶縁体の間にある性質と動作原理" }
+        "subcategories": [
+          {
+            "key": "semiconductor-overview",
+            "label": "概論",
+            "summary": "半導体の基本的な性質と動作原理を概観",
+            "articles": [
+              { "title": "半導体とは何か", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E5%8D%8A%E5%B0%8E%E4%BD%93/%E5%8D%8A%E5%B0%8E%E4%BD%93%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B.pdf", "description": "導体と絶縁体の間にある性質と動作原理" }
+            ]
+          },
+          {
+            "key": "semiconductor-device",
+            "label": "半導体デバイス",
+            "summary": "pn接合・バイポーラ・MOSトランジスタの理論を体系的に学ぶ",
+            "articles": [
+              { "title": "序", "url": "/pages/articles/semiconductor/device/序.pdf" },
+              { "title": "Ch01　半導体デバイス移りの基礎", "url": "/pages/articles/semiconductor/device/Ch01_半導体デバイス移りの基礎.pdf" },
+              { "title": "Ch02　pn接合", "url": "/pages/articles/semiconductor/device/Ch02_pn接合.pdf" },
+              { "title": "Ch03　バイポーラタランジスタの基礎理論均一濃度分布", "url": "/pages/articles/semiconductor/device/Ch03_バイポーラタランジスタの基礎理論均一濃度分布.pdf" },
+              { "title": "Ch04　バイポーラタランジスタの理論任意分布", "url": "/pages/articles/semiconductor/device/Ch04_バイポーラタランジスタの理論任意分布.pdf" },
+              { "title": "Ch05　MOSトランジスタの理論", "url": "/pages/articles/semiconductor/device/Ch05_MOSトランジスタの理論.pdf" },
+              { "title": "参考文献", "url": "/pages/articles/semiconductor/device/参考文献.pdf" }
+            ]
+          }
         ]
       },
       {
@@ -354,7 +403,17 @@ window.SITE = {
           { "title": "走れメラス 27", "url": "/pages/articles/melas/Merasu27_public.pdf", "description": "" },
           { "title": "走れメラス 28", "url": "/pages/articles/melas/Merasu28_public.pdf", "description": "" },
           { "title": "走れメラス 29", "url": "/pages/articles/melas/Merasu29_public.pdf", "description": "" },
-          { "title": "走れメラス 30", "url": "/pages/articles/melas/Merasu30_public.pdf", "description": "" }
+          { "title": "走れメラス 30", "url": "/pages/articles/melas/Merasu30_public.pdf", "description": "" },
+          { "title": "走れメラス 31", "url": "/pages/articles/melas/Merasu31_public.pdf", "description": "" },
+          { "title": "走れメラス 32", "url": "/pages/articles/melas/Merasu32_public.pdf", "description": "" },
+          { "title": "走れメラス 33", "url": "/pages/articles/melas/Merasu33_public.pdf", "description": "" },
+          { "title": "走れメラス 34", "url": "/pages/articles/melas/Merasu34_public.pdf", "description": "" },
+          { "title": "走れメラス 35", "url": "/pages/articles/melas/Merasu35_public.pdf", "description": "" },
+          { "title": "走れメラス 36", "url": "/pages/articles/melas/Merasu36_public.pdf", "description": "" },
+          { "title": "走れメラス 37", "url": "/pages/articles/melas/Merasu37_public.pdf", "description": "" },
+          { "title": "走れメラス 38", "url": "/pages/articles/melas/Merasu38_public.pdf", "description": "" },
+          { "title": "走れメラス 39", "url": "/pages/articles/melas/Merasu39_public.pdf", "description": "" },
+          { "title": "走れメラス 40", "url": "/pages/articles/melas/Merasu40_public.pdf", "description": "" }
         ]
       },
       {
