@@ -418,7 +418,12 @@ window.SITE = {
           { "title": "走れメラス 37", "url": "/pages/articles/melas/Merasu37_public.pdf", "description": "" },
           { "title": "走れメラス 38", "url": "/pages/articles/melas/Merasu38_public.pdf", "description": "" },
           { "title": "走れメラス 39", "url": "/pages/articles/melas/Merasu39_public.pdf", "description": "" },
-          { "title": "走れメラス 40", "url": "/pages/articles/melas/Merasu40_public.pdf", "description": "" }
+          { "title": "走れメラス 40", "url": "/pages/articles/melas/Merasu40_public.pdf", "description": "" },
+          { "title": "走れメラス 41", "url": "/pages/articles/melas/Merasu41_public.pdf", "description": "" },
+          { "title": "走れメラス 42", "url": "/pages/articles/melas/Merasu42_public.pdf", "description": "" },
+          { "title": "走れメラス 43", "url": "/pages/articles/melas/Merasu43_public.pdf", "description": "" },
+          { "title": "走れメラス 44", "url": "/pages/articles/melas/Merasu44_public.pdf", "description": "" },
+          { "title": "走れメラス 45", "url": "/pages/articles/melas/Merasu45_public.pdf", "description": "" }
         ]
       },
       {
