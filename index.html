@@ -135,6 +135,9 @@
     .updateList{list-style:none;margin:0;padding:0;display:grid;gap:6px}
     .updateList li{padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
     .updateList li:nth-child(n+6){display:none}
+    .updateList.expanded li:nth-child(n+6){display:block}
+    .moreBtn{margin-top:14px;background:none;border:1px solid var(--brand);color:var(--brand);font-weight:600;font-size:14px;padding:8px 20px;border-radius:999px;cursor:pointer;transition:background .15s,color .15s}
+    .moreBtn:hover{background:var(--brand);color:#fff}
     .updateList a{color:var(--brand);font-weight:600}
     .updateList a:hover{text-decoration:underline}
   </style>
@@ -187,6 +190,7 @@
       <li><strong>2025-10-21：</strong> <a href="#/category/queue">待ち行列</a> に関する資料を公開</li>
       <li><strong>2025-10-21：</strong> <a href="#/category/stat">多変量解析</a> に関する資料を公開</li>
     </ul>
+    <button class="moreBtn" id="moreBtn" type="button" aria-expanded="false">もっと見る</button>
   </section>
   <main id="app"></main>
   <footer>© <span id="year"></span> 9×2=3の部屋<br>Kunihiro Suzuki</footer>
@@ -450,6 +454,16 @@
     menuBtn.addEventListener("click",()=>drawer.classList.toggle("open"));
     drawer.addEventListener("click",e=>{if(e.target.tagName==="A")drawer.classList.remove("open")});
     drawer.addEventListener("click",e=>{if(e.target.id==="drawerClose")drawer.classList.remove("open")});
+
+    const moreBtn=$("#moreBtn"),updateList=document.querySelector(".updateList");
+    if(moreBtn&&updateList){
+      if(updateList.children.length<=5){moreBtn.style.display="none";}
+      moreBtn.addEventListener("click",()=>{
+        const expanded=updateList.classList.toggle("expanded");
+        moreBtn.textContent=expanded?"閉じる":"もっと見る";
+        moreBtn.setAttribute("aria-expanded",expanded);
+      });
+    }
 
     window.addEventListener("hashchange",route);
     window.addEventListener("DOMContentLoaded",()=>{
