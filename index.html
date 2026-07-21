@@ -173,25 +173,6 @@
     <button id="drawerClose" class="drawerClose" aria-label="閉じる">&times;</button>
   </aside>
 
-  <section class="updates container" id="updates">
-    <div class="catHeader">
-      <h2>更新履歴</h2>
-      <p>最近追加・更新された資料の一覧です。</p>
-    </div>
-    <ul class="updateList">
-      <li><strong>2026-07-21：</strong> <a href="#/category/stat">ベイズ統計</a> を追加</li>
-      <li><strong>2026-07-21：</strong> <a href="#/category/others">コロナウィルス感染者数について</a> を追加</li>
-      <li><strong>2026-07-07：</strong> <a href="#/category/melas">走れメラス 41~45</a> を追加</li>
-      <li><strong>2026-03-19：</strong> <a href="#/category/melas">走れメラス 31~40</a> を追加</li>
-      <li><strong>2026-03-19：</strong> <a href="#/category/stat">決定論的解析・数量化理論</a> を追加</li>
-      <li><strong>2026-03-19：</strong> <a href="#/category/semiconductor">半導体デバイス</a> を追加</li>
-      <li><strong>2026-03-19：</strong> <a href="#/category/queue">待ち行列の基礎</a> の資料を更新</li>
-      <li><strong>2025-10-21：</strong> <a href="#/category/melas">走れメラス 26~30</a> を追加</li>
-      <li><strong>2025-10-21：</strong> <a href="#/category/queue">待ち行列</a> に関する資料を公開</li>
-      <li><strong>2025-10-21：</strong> <a href="#/category/stat">多変量解析</a> に関する資料を公開</li>
-    </ul>
-    <button class="moreBtn" id="moreBtn" type="button" aria-expanded="false">もっと見る</button>
-  </section>
   <main id="app"></main>
   <footer>© <span id="year"></span> 9×2=3の部屋<br>Kunihiro Suzuki</footer>
 
@@ -321,6 +302,27 @@
           </div>
         </section>`;
 
+      html+=`
+        <section class="updates container" id="updates">
+          <div class="catHeader">
+            <h2>更新履歴</h2>
+            <p>最近追加・更新された資料の一覧です。</p>
+          </div>
+          <ul class="updateList">
+            <li><strong>2026-07-21：</strong> <a href="#/category/stat">ベイズ統計</a> を追加</li>
+            <li><strong>2026-07-21：</strong> <a href="#/category/others">コロナウィルス感染者数について</a> を追加</li>
+            <li><strong>2026-07-07：</strong> <a href="#/category/melas">走れメラス 41~45</a> を追加</li>
+            <li><strong>2026-03-19：</strong> <a href="#/category/melas">走れメラス 31~40</a> を追加</li>
+            <li><strong>2026-03-19：</strong> <a href="#/category/stat">決定論的解析・数量化理論</a> を追加</li>
+            <li><strong>2026-03-19：</strong> <a href="#/category/semiconductor">半導体デバイス</a> を追加</li>
+            <li><strong>2026-03-19：</strong> <a href="#/category/queue">待ち行列の基礎</a> の資料を更新</li>
+            <li><strong>2025-10-21：</strong> <a href="#/category/melas">走れメラス 26~30</a> を追加</li>
+            <li><strong>2025-10-21：</strong> <a href="#/category/queue">待ち行列</a> に関する資料を公開</li>
+            <li><strong>2025-10-21：</strong> <a href="#/category/stat">多変量解析</a> に関する資料を公開</li>
+          </ul>
+          <button class="moreBtn" id="moreBtn" type="button" aria-expanded="false">もっと見る</button>
+        </section>`;
+
       const hideViewAllKeys=new Set(["stat","math","memoir","others","queue","semiconductor"]);
 
       html+=SITE.categories.map(c=>{
@@ -342,6 +344,17 @@
       }).join("");
 
       app.innerHTML=html;
+
+      // 更新履歴「もっと見る」トグル
+      const moreBtn=$("#moreBtn"),updateList=app.querySelector(".updateList");
+      if(moreBtn&&updateList){
+        if(updateList.children.length<=5){moreBtn.style.display="none";}
+        moreBtn.addEventListener("click",()=>{
+          const expanded=updateList.classList.toggle("expanded");
+          moreBtn.textContent=expanded?"閉じる":"もっと見る";
+          moreBtn.setAttribute("aria-expanded",expanded);
+        });
+      }
 
       // ヒーロー軽いパララックス
       const bg=document.getElementById('hero-bg');
@@ -454,16 +467,6 @@
     menuBtn.addEventListener("click",()=>drawer.classList.toggle("open"));
     drawer.addEventListener("click",e=>{if(e.target.tagName==="A")drawer.classList.remove("open")});
     drawer.addEventListener("click",e=>{if(e.target.id==="drawerClose")drawer.classList.remove("open")});
-
-    const moreBtn=$("#moreBtn"),updateList=document.querySelector(".updateList");
-    if(moreBtn&&updateList){
-      if(updateList.children.length<=5){moreBtn.style.display="none";}
-      moreBtn.addEventListener("click",()=>{
-        const expanded=updateList.classList.toggle("expanded");
-        moreBtn.textContent=expanded?"閉じる":"もっと見る";
-        moreBtn.setAttribute("aria-expanded",expanded);
-      });
-    }
 
     window.addEventListener("hashchange",route);
     window.addEventListener("DOMContentLoaded",()=>{
