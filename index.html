@@ -134,6 +134,7 @@
     .updates{padding:60px 32px;background:#f9fafb;border-top:1px solid var(--line);}
     .updateList{list-style:none;margin:0;padding:0;display:grid;gap:6px}
     .updateList li{padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+    .updateList li:nth-child(n+6){display:none}
     .updateList a{color:var(--brand);font-weight:600}
     .updateList a:hover{text-decoration:underline}
   </style>
@@ -169,7 +170,6 @@
     <button id="drawerClose" class="drawerClose" aria-label="閉じる">&times;</button>
   </aside>
 
-  <main id="app"></main>
   <section class="updates container" id="updates">
     <div class="catHeader">
       <h2>更新履歴</h2>
@@ -188,6 +188,7 @@
       <li><strong>2025-10-21：</strong> <a href="#/category/stat">多変量解析</a> に関する資料を公開</li>
     </ul>
   </section>
+  <main id="app"></main>
   <footer>© <span id="year"></span> 9×2=3の部屋<br>Kunihiro Suzuki</footer>
 
   <!-- サイトデータ -->
