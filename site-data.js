@@ -127,6 +127,14 @@ window.SITE = {
               { "title": "Ch04　数量化IV類", "url": "/pages/articles/stat/categorical/Ch04_数量化IV類.pdf" },
               { "title": "参考文献", "url": "/pages/articles/stat/categorical/参考文献.pdf" }
             ]
+          },
+          {
+            "key": "bayes",
+            "label": "ベイズ統計",
+            "summary": "ベイズの定理・条件付き確率・ベイズ更新で結果から原因を推論する",
+            "articles": [
+              { "title": "ベイズ統計", "url": "/pages/articles/stat/bayes/ベイズ統計.pdf", "description": "事象からその原因を推論するベイズの定理と更新の考え方" }
+            ]
           }
         ]
       },
@@ -371,7 +379,8 @@ window.SITE = {
             "title": "人口問題",
             "url": "/pages/articles/others/人口問題.pdf",
             "description": "人口動態・少子高齢化と社会への影響を概観"
-          }          
+          },
+          { "title": "コロナウィルス感染者数について", "url": "/pages/articles/others/コロナウィルス感染者数について.pdf", "description": "感染者数の増減を数理モデルで表し対策の効果を考える" }
         ]
       },
       {
