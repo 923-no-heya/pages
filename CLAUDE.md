@@ -32,6 +32,8 @@ python3 -m http.server 8000
 
 `site-data.js` の `SITE` オブジェクトを編集する。カテゴリは最大2階層のネスト（Category → Subcategories → Children → Articles）をサポート。記事URLはGoogle Cloud Storage・AWS S3・ローカル `/articles/` パスを指す。
 
+GitHub PagesはCDN（Fastly）でCache-Control: max-age=600を付与しており、ブラウザ側はさらに長くキャッシュすることがある。`site-data.js` を更新したら `index.html` 内の `<script src="site-data.js?v=...">` のクエリ値（更新日など）を必ず書き換えること。これを忘れるとユーザー側で手動キャッシュクリアしないと変更が反映されない。
+
 ### デザインシステム
 
 CSS変数は `index.html` の `<style>` タグ内に定義されている:
