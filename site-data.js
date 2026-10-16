@@ -360,6 +360,21 @@ window.SITE = {
         ]
       },
       {
+        "key": "physics",
+        "label": "物理",
+        "summary": "力学をはじめ、物の動きを記述する物理学の基礎を学ぶ",
+        "subcategories": [
+          {
+            "key": "mechanics",
+            "label": "力学",
+            "summary": "質点の位置・速度・加速度からニュートンの運動法則まで",
+            "articles": [
+              { "title": "力学の基礎", "url": "/pages/articles/physics/mechanics/力学の基礎.pdf", "description": "質点の運動と速度・加速度の記述からニュートン力学を学ぶ" }
+            ]
+          }
+        ]
+      },
+      {
         "key": "others",
         "label": "その他の解析",
         "summary": "数値計算・シミュレーションで現象を手を動かして掴む",
@@ -434,21 +449,6 @@ window.SITE = {
           { "title": "走れメラス 44", "url": "/pages/articles/melas/Merasu44_public.pdf", "description": "虚数のあらわれ" },
           { "title": "走れメラス 45", "url": "/pages/articles/melas/Merasu45_public.pdf", "description": "八木重吉の詩" },
           { "title": "走れメラス 46", "url": "/pages/articles/melas/Merasu46_public.pdf", "description": "聞き違いと掛け算のたわむれ" }
-        ]
-      },
-      {
-        "key": "physics",
-        "label": "物理",
-        "summary": "力学をはじめ、物の動きを記述する物理学の基礎を学ぶ",
-        "subcategories": [
-          {
-            "key": "mechanics",
-            "label": "力学",
-            "summary": "質点の位置・速度・加速度からニュートンの運動法則まで",
-            "articles": [
-              { "title": "力学の基礎", "url": "/pages/articles/physics/mechanics/力学の基礎.pdf", "description": "質点の運動と速度・加速度の記述からニュートン力学を学ぶ" }
-            ]
-          }
         ]
       },
       {
