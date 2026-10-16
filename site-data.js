@@ -337,7 +337,7 @@ window.SITE = {
         "subcategories": [
           {
             "key": "semiconductor-overview",
-            "label": "概論",
+            "label": "半導体とは何か",
             "summary": "半導体の基本的な性質と動作原理を概観",
             "articles": [
               { "title": "半導体とは何か", "url": "https://kunisan-assets.s3.ap-northeast-1.amazonaws.com/%E5%8D%8A%E5%B0%8E%E4%BD%93/%E5%8D%8A%E5%B0%8E%E4%BD%93%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B.pdf", "description": "導体と絶縁体の間にある性質と動作原理" }
